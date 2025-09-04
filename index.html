@@ -5,198 +5,199 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>TDC FOOD Finder｜トーキョー・ディスカバリー・シティ 2025</title>
         <style>
-          :root {
-            --bg1:#0b1220; --bg2:#0e1630; --text:#e8f0ff; --muted:#a9b6d5;
-            --accent:#7aa2ff; --accent2:#ff8ef2; --accent3:#7bffcc;
-            --headH:96px;  /* JSでheaderの高さを実測して上書き */
-          }
+      :root {
+        --bg1:#0b1220; --bg2:#0e1630; --text:#e8f0ff; --muted:#a9b6d5;
+        --accent:#7aa2ff; --accent2:#ff8ef2; --accent3:#7bffcc;
+        --headH:96px;  /* JSでheaderの高さを実測して上書き */
+      }
 
-          * { box-sizing: border-box; }
-          body {
-            margin: 0; color: var(--text);
-            background: linear-gradient(180deg, var(--bg1), var(--bg2));
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
-          }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; color: var(--text);
+        background: linear-gradient(180deg, var(--bg1), var(--bg2));
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
+      }
 
-          /* ===== ヘッダー（検索UI） ===== */
-          header {
-            position: sticky; top: 0; z-index: 20;
-            background: rgba(8,12,26,.88);
-            backdrop-filter: blur(6px);
-            padding: 12px 16px 10px;
-            border-bottom: 1px solid #15203d;
-          }
-          h1 {
-            margin: 0 0 6px;
-            font-size: 1.4rem;
-            display: flex; gap: .4rem; align-items: center;
-          }
-          .controls { display: flex; flex-wrap: wrap; gap: .5rem; }
-          .controls input, .controls select {
-            padding: .45rem .6rem;
-            border-radius: 8px;
-            border: 1px solid #2a3557;
-            background: #0f1426;
-            color: var(--text);
-          }
-          button { padding: .55rem 1rem; border: none; border-radius: 8px; cursor: pointer; }
-          .btn-primary {
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            color: #071225; font-weight: 700;
-          }
+      /* ===== ヘッダー（検索UI） ===== */
+      header {
+        position: sticky; top: 0; z-index: 20;
+        background: rgba(8,12,26,.88);
+        backdrop-filter: blur(6px);
+        padding: 12px 16px 10px;
+        border-bottom: 1px solid #15203d;
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-size: 1.4rem;
+        display: flex; gap: .4rem; align-items: center;
+      }
+      .controls { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .controls input, .controls select {
+        padding: .45rem .6rem;
+        border-radius: 8px;
+        border: 1px solid #2a3557;
+        background: #0f1426;
+        color: var(--text);
+      }
+      button { padding: .55rem 1rem; border: none; border-radius: 8px; cursor: pointer; }
+      .btn-primary {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        color: #071225; font-weight: 700;
+      }
 
-          /* ===== テーブル ===== */
-          main { padding: 0 8px; }
-          table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 8px;
-            /* 星系暖色の枠線と背景 */
-            border: 1px solid rgba(255,200,100,0.45);
-            border-radius: 8px;
-            background: rgba(11,18,32,0.95);
-          }
+      /* ===== テーブル ===== */
+      main { padding: 0 8px; }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+        /* 星系暖色の枠線と背景 */
+        border: 1px solid rgba(255,200,100,0.45);
+        border-radius: 8px;
+        background: rgba(11,18,32,0.95);
+      }
 
-          thead { position: sticky; top: var(--headH); z-index: 10; }
-          th, td {
-            padding: .65rem;
-            text-align: left;
-            background: #0d152b;
-          }
+      thead { position: sticky; top: var(--headH); z-index: 10; }
+      th, td {
+        padding: .65rem;
+        text-align: left;
+        background: #0d152b;
+      }
 
-          th {
-            background: #111a33;
-            border: none; /* 見出し行は枠線なし */
-          }
+      th {
+        background: #111a33;
+        border: none; /* 見出し行は枠線なし */
+      }
 
-          tbody td {
-            border-bottom: 1px solid rgba(255,200,100,0.35); /* 星色ライン */
-          }
+      tbody td {
+        border-bottom: 1px solid rgba(255,200,100,0.35); /* 星色ライン */
+      }
 
-          tbody tr:hover {
-            background: rgba(255,200,100,0.10);
-            border-color: rgba(255,200,100,0.65);
-            box-shadow: 0 0 8px rgba(255,200,100,0.4); /* 星の光 */
-          }
+      tbody tr:hover {
+        background: rgba(255,200,100,0.10);
+        border-color: rgba(255,200,100,0.65);
+        box-shadow: 0 0 8px rgba(255,200,100,0.4); /* 星の光 */
+      }
 
-          td a { color: var(--accent3); text-decoration: none; }
-          .pill {
-            display: inline-block; padding: 2px 8px; border-radius: 999px;
-            background: rgba(122,162,255,.18); font-size: .8rem; border: 1px solid #2a4b7a;
-          }
-          .num { text-align: left; white-space: nowrap; }
-          #meta { margin-top: .4rem; color: var(--muted); }
-          footer { color: var(--muted); font-size: .8rem; padding: 18px; text-align: center; }
+      td a { color: var(--accent3); text-decoration: none; }
+      .pill {
+        display: inline-block; padding: 2px 8px; border-radius: 999px;
+        background: rgba(122,162,255,.18); font-size: .8rem; border: 1px solid #2a4b7a;
+      }
+      .num { text-align: left; white-space: nowrap; }
+      #meta { margin-top: .4rem; color: var(--muted); }
+      footer { color: var(--muted); font-size: .8rem; padding: 18px; text-align: center; }
 
-          /* デフォルト（PC/タブレット）ではカード用ラベルは出さない */
-          tbody td::before { content: none !important; }
+      /* デフォルト（PC/タブレット）ではカード用ラベルは出さない */
+      tbody td::before { content: none !important; }
 
-          /* ===== Mobile: テーブル→カード表示 ===== */
-          @media (max-width: 768px) {
-            .controls { gap: .6rem; }
-            .controls input, .controls select, .btn-primary { width: 100%; }
+      /* ===== Mobile: テーブル→カード表示 ===== */
+      @media (max-width: 768px) {
+        .controls { gap: .6rem; }
+        .controls input, .controls select, .btn-primary { width: 100%; }
 
-            thead { display: none; }  /* 見出しはカード内のラベルに置き換え */
+        thead { display: none; }  /* 見出しはカード内のラベルに置き換え */
 
-            table { border: none; }
-            tbody { display: block; }
-            tbody tr {
-              display: block;
-              margin: 12px 0;
-              border: 1px solid rgba(255,200,100,0.45);
-              border-radius: 12px;
-              overflow: hidden;
-              background: rgba(13,21,43,.92);
-              box-shadow: 0 6px 12px rgba(0,0,0,.18);
-              transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
-            }
-            tbody td {
-              display: grid;
-              grid-template-columns: 7.5em 1fr;
-              gap: .45rem .6rem;
-              padding: .7rem .9rem;
-              border-top: 1px solid rgba(255,200,100,0.35);
-            }
-            tbody tr td:first-child { border-top: none; }
+        table { border: none; }
+        tbody { display: block; }
+        tbody tr {
+          display: block;
+          margin: 12px 0;
+          border: 1px solid rgba(255,200,100,0.45);
+          border-radius: 12px;
+          overflow: hidden;
+          background: rgba(13,21,43,.92);
+          box-shadow: 0 6px 12px rgba(0,0,0,.18);
+          transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+        }
+        tbody td {
+          display: grid;
+          grid-template-columns: 7.5em 1fr;
+          gap: .45rem .6rem;
+          padding: .7rem .9rem;
+          border-top: 1px solid rgba(255,200,100,0.35);
+        }
+        tbody tr td:first-child { border-top: none; }
 
-            /* ラベル（見出し）を擬似要素で表示（モバイルのみ） */
-            tbody td::before {
-              content: attr(data-label);
-              color: var(--muted);
-              font-weight: 700;
-              letter-spacing: .02em;
-            }
+        /* ラベル（見出し）を擬似要素で表示（モバイルのみ） */
+        tbody td::before {
+          content: attr(data-label);
+          color: var(--muted);
+          font-weight: 700;
+          letter-spacing: .02em;
+        }
 
-            /* メニュー名はカードのタイトル風に全幅 */
-            tbody td.cell-menu {
-              grid-template-columns: 1fr;
-              grid-column: 1 / -1;
-              font-size: 1.05rem;
-              line-height: 1.45;
-              border-top: 1px solid rgba(255,200,100,0.35);
-            }
-            tbody td.cell-menu::before {
-              content: "メニュー名";
-              margin-bottom: .2rem;
-              font-size: .85rem;
-              color: var(--muted);
-              font-weight: 700;
-            }
+        /* メニュー名はカードのタイトル風に全幅 */
+        tbody td.cell-menu {
+          grid-template-columns: 1fr;
+          grid-column: 1 / -1;
+          font-size: 1.05rem;
+          line-height: 1.45;
+          border-top: 1px solid rgba(255,200,100,0.35);
+        }
+        tbody td.cell-menu::before {
+          content: "メニュー名";
+          margin-bottom: .2rem;
+          font-size: .85rem;
+          color: var(--muted);
+          font-weight: 700;
+        }
 
-            /* 価格も左寄せ */
-            tbody td.cell-price{ text-align:left }
-            tbody td.cell-price::before{
-              content:"価格";
-              display:block;
-              margin-bottom:.2rem;
-              color:var(--muted);
-              font-weight:700;
-            }
+        /* 価格も左寄せ */
+        tbody td.cell-price{ text-align:left }
+        tbody td.cell-price::before{
+          content:"価格";
+          display:block;
+          margin-bottom:.2rem;
+          color: var(--muted);
+          font-weight:700;
+        }
 
-            .pill { padding: 2px 7px; font-size: .78rem; }
-            main { padding: 0 10px; }
+        .pill { padding: 2px 7px; font-size: .78rem; }
+        main { padding: 0 10px; }
 
-            tbody tr:hover {
-              background: rgba(255,200,100,0.10);
-              border-color: rgba(255,200,100,0.65);
-              box-shadow: 0 0 8px rgba(255,200,100,0.4);
-            }
-          }
+        tbody tr:hover {
+          background: rgba(255,200,100,0.10);
+          border-color: rgba(255,200,100,0.65);
+          box-shadow: 0 0 8px rgba(255,200,100,0.4);
+        }
+      }
 
-          /* ==== フィルタ開閉ボタン ==== */
-          .toggle {
-            display: none;
-            margin-left: auto;
-            padding: .45rem .8rem;
-            border: 1px solid #2a3557;
-            background: #0f1426;
-            color: var(--text);
-            border-radius: 8px;
-          }
-          header.collapsed .controls,
-          header.collapsed #meta{ display:none; }
+      /* ==== フィルタ開閉ボタン ==== */
+      .toggle {
+        display: none;
+        margin-left: auto;
+        padding: .45rem .8rem;
+        border: 1px solid #2a3557;
+        background: #0f1426;
+        color: var(--text);
+        border-radius: 8px;
+      }
+      header.collapsed .controls,
+      header.collapsed #meta{ display:none; }
 
-          @media (max-width:768px){
-            .toggle{ display:inline-flex; align-items:center; gap:.25rem; }
-          }
-          /* === モバイルで「エリア名」「店舗」をメニュー名と同じ全幅表示に === */
-          @media (max-width: 768px) {
-            tbody td.cell-area,
-            tbody td.cell-shop {
-              grid-template-columns: 1fr;   /* ラベル上／値は1列で全幅 */
-              grid-column: 1 / -1;          /* カード全幅に広げる */
-              overflow-wrap: break-word;    /* 長い英単語のみ必要時に折り返し */
-              word-break: normal;           /* 日本語の不自然な分割を避ける */
-            }
-            tbody td.cell-area::before,
-            tbody td.cell-shop::before {
-              display: block;
-              margin-bottom: .2rem;         /* ラベル下に余白 */
-              font-size: .85rem;
-              color: var(--muted);
-              font-weight: 700;
-            }
-          }
+      @media (max-width:768px){
+        .toggle{ display:inline-flex; align-items:center; gap:.25rem; }
+      }
+
+      /* === モバイルで「エリア名」「店舗」をメニュー名と同じ全幅表示に === */
+      @media (max-width: 768px) {
+        tbody td.cell-area,
+        tbody td.cell-shop {
+          grid-template-columns: 1fr;   /* ラベル上／値は1列で全幅 */
+          grid-column: 1 / -1;          /* カード全幅に広げる */
+          overflow-wrap: break-word;    /* 長い英単語のみ必要時に折り返し */
+          word-break: normal;           /* 日本語の不自然な分割を避ける */
+        }
+        tbody td.cell-area::before,
+        tbody td.cell-shop::before {
+          display: block;
+          margin-bottom: .2rem;         /* ラベル下に余白 */
+          font-size: .85rem;
+          color: var(--muted);
+          font-weight: 700;
+        }
+      }
         </style>
     </head>
     <body>
@@ -205,7 +206,8 @@
             <button id="toggleFilters" class="toggle" aria-expanded="true">🔎 フィルタを隠す</button>
             <div class="controls">
                 <input id="q" type="text" placeholder="キーワード検索（メニュー/店舗/エリア/コースター）">
-                <input id="authorQ" type="text" placeholder="考案者検索">
+                <!-- ▼ 考案者：指定順のリストボックス -->
+                <select id="author" title="考案者"></select>
                 <select id="area" title="エリア"></select>
                 <select id="restaurant" title="店舗"></select>
                 <select id="coaster" title="コースター"></select>
@@ -271,7 +273,7 @@
         {area:"ラクーア",menu:"須貝スペシャルオレンジフロート 通年メニューにしませんか？",author:"須貝駿貴",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"クイズA",priceMin:1000,priceMax:1000},
         {area:"ラクーア",menu:"バナナチョコミルク 斑状組織風",author:"ふくらP",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"謎A",priceMin:1000,priceMax:1000},
         {area:"ラクーア",menu:"白い革命〜カレー×クレープ〜",author:"伊沢拓司",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"謎B",priceMin:1200,priceMax:1200},
-        {area:"ラクーア",menu:"灯火親しむべし！かぼちゃのトーチクレープ",author:"山本祥彰",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"クイズB",priceMin:1200,priceMax:1200},
+        {area:"ラクーア",menu:"灯火親しむべし！かぼちゃのトーチクレープ",author:"山本祥彰",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknck.com/food/#kennys",coaster:"クイズB",priceMin:1200,priceMax:1200},
         {area:"スパ ラクーア",menu:"トマ～トソ～ス！う～んトレビア～ン！",author:"東言",restaurant:"CAFE CASA＆Deli",url:"https://tokyo-discovery-city.quizknock.com/food/#casa",coaster:"ボイスB",priceMin:1500,priceMax:1500},
         {area:"スパ ラクーア",menu:"アセロラサンライズフロート",author:"河村拓哉",restaurant:"dayoff cafe",url:"https://tokyo-discovery-city.quizknock.com/food/#dayoff",coaster:"謎A",priceMin:850,priceMax:850},
         {area:"スパ ラクーア",menu:"珈琲車厘（コーヒーゼリー）",author:"須貝駿貴",restaurant:"R.S. BAR",url:"https://tokyo-discovery-city.quizknock.com/food/#rsbar",coaster:"クイズB",priceMin:1200,priceMax:1200},
@@ -299,7 +301,7 @@
 
       /* ===== JS ===== */
       const state = {
-        q:"", authorQ:"", area:"all", restaurant:"all", coaster:"all",
+        q:"", author:"all", area:"all", restaurant:"all", coaster:"all",
         priceMin:null, priceMax:null, sort:"area,restaurant,menu"
       };
       const $ = s => document.querySelector(s);
@@ -315,15 +317,25 @@
       const priceStr = r => (r.priceMin===r.priceMax)? yen(r.priceMin) : `${yen(r.priceMin)}〜${yen(r.priceMax)}`;
 
       function initFilters(){
+        // エリア
         const areas = ["すべて", ...new Set(DATA.map(r=>r.area))];
         $("#area").innerHTML = areas.map((a,i)=>`<option value="${i? a:"all"}">${a}</option>`).join("");
 
+        // 店舗
         const restaurants = ["すべて", ...Array.from(new Set(DATA.map(r=>r.restaurant))).sort((a,b)=>a.localeCompare(b,"ja"))];
         $("#restaurant").innerHTML = restaurants.map((x,i)=>`<option value="${i? x:"all"}">${x}</option>`).join("");
 
+        // コースター
         const coasters = ["すべて", ...Array.from(new Set(DATA.map(r=>r.coaster))).sort((a,b)=>a.localeCompare(b,"ja"))];
         $("#coaster").innerHTML = coasters.map((c,i)=>`<option value="${i? c:"all"}">${c}</option>`).join("");
 
+        // ▼ 考案者（ご指定の順番）
+        const authorOrder = ["すべて","伊沢拓司","河村拓哉","須貝駿貴","鶴崎修功","東言","東問","ふくらP", "山本祥彰"];
+        $("#author").innerHTML = authorOrder
+          .map((name,i)=>`<option value="${i? name:"all"}">${name}</option>`)
+          .join("");
+
+        // プレースホルダと初期値
         $("#priceMin").placeholder="価格min";
         $("#priceMax").placeholder="価格max";
         $("#priceMin").value="";
@@ -332,15 +344,14 @@
 
       function getFiltered(){
         const q=(state.q||"").toLowerCase();
-        const aq=(state.authorQ||"").toLowerCase();
         return DATA.filter(r=>{
           if(state.area!=="all" && r.area!==state.area) return false;
           if(state.restaurant!=="all" && r.restaurant!==state.restaurant) return false;
           if(state.coaster!=="all" && r.coaster!==state.coaster) return false;
+          if(state.author!=="all" && (r.author||"")!==state.author) return false;
           if(state.priceMin!=null && r.priceMax < state.priceMin) return false;
           if(state.priceMax!=null && r.priceMin > state.priceMax) return false;
           if(q && !`${r.area} ${r.menu} ${r.restaurant} ${r.coaster}`.toLowerCase().includes(q)) return false;
-          if(aq && !(r.author||"").toLowerCase().includes(aq)) return false;
           return true;
         }).sort(sortFn());
       }
@@ -373,7 +384,7 @@
 
       function attach(){
         $("#q").addEventListener('input', e=>{ state.q=e.target.value; render(); });
-        $("#authorQ").addEventListener('input', e=>{ state.authorQ=e.target.value; render(); });
+        $("#author").addEventListener('change', e=>{ state.author=e.target.value; render(); });
         $("#area").addEventListener('change', e=>{ state.area=e.target.value; render(); });
         $("#restaurant").addEventListener('change', e=>{ state.restaurant=e.target.value; render(); });
         $("#coaster").addEventListener('change', e=>{ state.coaster=e.target.value; render(); });
