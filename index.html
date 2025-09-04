@@ -5,106 +5,127 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>TDC FOOD Finder｜トーキョー・ディスカバリー・シティ 2025</title>
         <style>
-    :root{
+    :root {
       --bg1:#0b1220; --bg2:#0e1630; --text:#e8f0ff; --muted:#a9b6d5;
       --accent:#7aa2ff; --accent2:#ff8ef2; --accent3:#7bffcc;
-      --headH: 96px;              /* JSで実測して上書き */
-      --tableTop: var(--headH);   /* sticky見出しの固定位置 */
+      --headH: 96px;               /* JSでheaderの高さを実測して上書き */
     }
-    *{box-sizing:border-box}
-    body{margin:0;color:var(--text);background:linear-gradient(180deg,var(--bg1),var(--bg2));font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans JP,sans-serif;}
 
-    /* 上部ヘッダー（検索UI） */
-    header{
-      position:sticky; top:0; z-index:20;
-      background:rgba(8,12,26,.88); backdrop-filter:blur(6px);
-      padding:12px 16px 10px;
-      border-bottom:1px solid #15203d;
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; color: var(--text);
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
     }
-    h1{margin:0 0 6px;font-size:1.4rem;display:flex;gap:.4rem;align-items:center}
-    .controls{display:flex;flex-wrap:wrap;gap:.5rem}
-    .controls input,.controls select{
-      padding:.45rem .6rem;border-radius:8px;border:1px solid #2a3557;background:#0f1426;color:var(--text);
+
+    /* ===== ヘッダー（検索UI） ===== */
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(8,12,26,.88);
+      backdrop-filter: blur(6px);
+      padding: 12px 16px 10px;
+      border-bottom: 1px solid #15203d;
     }
-    button{padding:.55rem 1rem;border:none;border-radius:8px;cursor:pointer}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071225;font-weight:700}
+    h1 {
+      margin: 0 0 6px;
+      font-size: 1.4rem;
+      display: flex; gap: .4rem; align-items: center;
+    }
+    .controls { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .controls input, .controls select {
+      padding: .45rem .6rem;
+      border-radius: 8px;
+      border: 1px solid #2a3557;
+      background: #0f1426;
+      color: var(--text);
+    }
+    button { padding: .55rem 1rem; border: none; border-radius: 8px; cursor: pointer; }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #071225; font-weight: 700;
+    }
 
-    /* テーブル */
-    main{padding:0 8px}
-    table{width:100%;border-collapse:collapse;margin-top:8px}
-    th,td{border-bottom:1px solid #22304f;padding:.65rem;text-align:left;background:#0d152b}
-    th{position:sticky; top: var(--tableTop); z-index:10; background:#111a33}
-    td a{color:var(--accent3); text-decoration:none}
-    .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:rgba(122,162,255,.18);font-size:.8rem;border:1px solid #2a4b7a}
-    .num{text-align:right;white-space:nowrap}
-    #meta{margin-top:.4rem;color:var(--muted)}
-    footer{color:var(--muted);font-size:.8rem;padding:18px;text-align:center}
-    /* === Mobile: テーブル→カード表示 === */
-@media (max-width: 768px){
-  /* 入力UIを1列に */
-  .controls{ gap:.6rem }
-  .controls input,.controls select, .btn-primary{ width:100% }
+    /* ===== テーブル ===== */
+    main { padding: 0 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    thead { position: sticky; top: var(--headH); z-index: 10; }   /* ← theadごと固定に */
+    th, td {
+      border-bottom: 1px solid #22304f;
+      padding: .65rem; text-align: left; background: #0d152b;
+    }
+    th {
+      background: #111a33;
+    }
+    td a { color: var(--accent3); text-decoration: none; }
+    .pill {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      background: rgba(122,162,255,.18); font-size: .8rem; border: 1px solid #2a4b7a;
+    }
+    .num { text-align: right; white-space: nowrap; }
+    #meta { margin-top: .4rem; color: var(--muted); }
+    footer { color: var(--muted); font-size: .8rem; padding: 18px; text-align: center; }
 
-  /* テーブル見出しは非表示（カード内にラベル表示するので） */
-  thead{ display:none }
+    /* デフォルト（PC/タブレット）ではカード用ラベルは出さない */
+    tbody td::before { content: none !important; }
 
-  table{ border:none; }
-  tbody{ display:block }
-  tbody tr{
-    display:block;
-    margin:12px 0;
-    border:1px solid #1b2744;
-    border-radius:12px;
-    overflow:hidden;
-    background:rgba(13,21,43,.92);
-    box-shadow:0 6px 12px rgba(0,0,0,.18);
-  }
+    /* ===== Mobile: テーブル→カード表示 ===== */
+    @media (max-width: 768px) {
+      .controls { gap: .6rem; }
+      .controls input, .controls select, .btn-primary { width: 100%; }
 
-  /* 各セル=2カラムの行（ラベル / 値） */
-  tbody td{
-    display:grid;
-    grid-template-columns: 7.5em 1fr;
-    gap:.45rem .6rem;
-    padding:.7rem .9rem;
-    border-top:1px solid #22304f;
-  }
-  /* 1つ目のセルだけ上のボーダーなし */
-  tbody tr td:first-child{ border-top:none }
+      thead { display: none; }  /* 見出しはカード内のラベルに置き換え */
 
-  /* ラベル（見出し）を擬似要素で表示 */
-  tbody td::before{
-    content: attr(data-label);
-    color: var(--muted);
-    font-weight:700;
-    letter-spacing:.02em;
-  }
+      table { border: none; }
+      tbody { display: block; }
+      tbody tr {
+        display: block;
+        margin: 12px 0;
+        border: 1px solid #1b2744;
+        border-radius: 12px;
+        overflow: hidden;
+        background: rgba(13,21,43,.92);
+        box-shadow: 0 6px 12px rgba(0,0,0,.18);
+      }
+      tbody td {
+        display: grid;
+        grid-template-columns: 7.5em 1fr;
+        gap: .45rem .6rem;
+        padding: .7rem .9rem;
+        border-top: 1px solid #22304f;
+      }
+      tbody tr td:first-child { border-top: none; }
 
-  /* メニュー名はカードの“タイトル”っぽく全幅で */
-  tbody td.cell-menu{
-    grid-template-columns: 1fr;
-    grid-column: 1 / -1;
-    font-size:1.05rem;
-    line-height:1.45;
-    border-top:1px dashed #25355a;
-  }
-  tbody td.cell-menu::before{
-    content:"メニュー名";
-    margin-bottom:.2rem;
-    font-size:.85rem;
-    color:var(--muted);
-    font-weight:700;
-  }
+      /* ラベル（見出し）を擬似要素で表示（モバイルのみ） */
+      tbody td::before {
+        content: attr(data-label);
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: .02em;
+      }
 
-  /* 価格行は右寄せ */
-  tbody td.cell-price{ text-align:right }
-  tbody td.cell-price::before{ text-align:left }
+      /* メニュー名はカードのタイトル風に全幅 */
+      tbody td.cell-menu {
+        grid-template-columns: 1fr;
+        grid-column: 1 / -1;
+        font-size: 1.05rem;
+        line-height: 1.45;
+        border-top: 1px dashed #25355a;
+      }
+      tbody td.cell-menu::before {
+        content: "メニュー名";
+        margin-bottom: .2rem;
+        font-size: .85rem;
+        color: var(--muted);
+        font-weight: 700;
+      }
 
-  /* コースターのピルを少し小さく */
-  .pill{ padding:2px 7px; font-size:.78rem }
+      /* 価格行は右寄せ */
+      tbody td.cell-price { text-align: right; }
+      tbody td.cell-price::before { text-align: left; }
 
-  /* 余白調整 */
-  main{ padding:0 10px }
-}
+      .pill { padding: 2px 7px; font-size: .78rem; }
+      main { padding: 0 10px; }
+    }
         </style>
     </head>
     <body>
@@ -154,8 +175,15 @@
                 <tbody id="tbody"></tbody>
             </table>
         </main>
-        <footer>データ出典：公式FOODページ／非公式整理サイトにつき、TDC、および株式会社batonとは一切関係がありません。</footer>
+        <footer>
+            データ出典：
+            <a href="https://tokyo-discovery-city.quizknock.com/food/" target="_blank" rel="noopener">
+                公式FOODページ
+            </a>
+            / 非公式整理サイトにつき、TDC、および株式会社batonとは一切関係がありません。
+        </footer>
         <script>
+    /* ===== データ ===== */
     const DATA = [
       {area:"ラクーア DELI & DISH",menu:"お昼ご飯かそれともおやつ？ エリンギのフォカッチャとアップルパイ",author:"河村拓哉",restaurant:"Half Saints BAKES",url:"https://tokyo-discovery-city.quizknock.com/food/#halfsaints",coaster:"ボイスB",priceMin:1080,priceMax:1080},
       {area:"ラクーア DELI & DISH",menu:"夜の始まり黄昏チキンフォカッチャ＆ピーチパイ",author:"東言",restaurant:"Half Saints BAKES",url:"https://tokyo-discovery-city.quizknock.com/food/#halfsaints",coaster:"謎B",priceMin:1080,priceMax:1080},
@@ -189,7 +217,7 @@
       {area:"東京ドームホテル",menu:"サンセットピーチティー",author:"東言",restaurant:"6F バー「2000」",url:"https://tokyo-discovery-city.quizknock.com/food/#bar2000",coaster:"クイズA",priceMin:1800,priceMax:1800},
       {area:"東京ドームホテル",menu:"Galaxy 〜ギャラクシー〜",author:"須貝駿貴",restaurant:"6F バー「2000」",url:"https://tokyo-discovery-city.quizknock.com/food/#bar2000",coaster:"謎B",priceMin:2000,priceMax:2000},
       {area:"FOOD STADIUM TOKYO",menu:"問題！タコスが生まれた国はメ/ ﾋﾟﾝﾎﾟﾝ 日本！正解！早押しタコライス",author:"山本祥彰",restaurant:"Don Chava",url:"https://tokyo-discovery-city.quizknock.com/food/#donchava",coaster:"謎A",priceMin:1280,priceMax:1280},
-      {area:"FOOD STADIUM TOKYO",menu:"タコスセット（…）",author:"河村拓哉",restaurant:"Don Chava",url:"https://tokyo-discovery-city.quizknock.com/food/#donchava",coaster:"謎B",priceMin:1500,priceMax:1500},
+      {area:"FOOD STADIUM TOKYO",menu:"タコスセット（タコスの「ス」って複数形のsだからセットじゃなかったらただのタコだったよ、よかったね）",author:"河村拓哉",restaurant:"Don Chava",url:"https://tokyo-discovery-city.quizknock.com/food/#donchava",coaster:"謎B",priceMin:1500,priceMax:1500},
       {area:"FOOD STADIUM TOKYO",menu:"丘に立つ月見鶏ちゃんぽん〜揚げナスを添えて〜",author:"東問",restaurant:"蟻月",url:"https://tokyo-discovery-city.quizknock.com/food/#arizuki",coaster:"クイズB",priceMin:1480,priceMax:1480},
       {area:"FOOD STADIUM TOKYO",menu:"二つの味が吹き抜ける！海鮮 ギンヌンガガップ丼",author:"東問",restaurant:"水道橋 すしわさび",url:"https://tokyo-discovery-city.quizknock.com/food/#sushiyasasabi",coaster:"ボイスB",priceMin:1320,priceMax:1320},
       {area:"Space Travelium TeNQ",menu:"チョコバナナラテ、天の川の『の』の香り",author:"鶴崎修功",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"ボイスA",priceMin:880,priceMax:880},
@@ -198,12 +226,16 @@
       {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（抹茶ラテ）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:900,priceMax:900},
       {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（ミルクラテ）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:800,priceMax:800}
     ];
+
     /* ===== JS ===== */
-    const state = { q:"", authorQ:"", area:"all", restaurant:"all", coaster:"all", priceMin:null, priceMax:null, sort:"area,restaurant,menu" };
+    const state = {
+      q:"", authorQ:"", area:"all", restaurant:"all", coaster:"all",
+      priceMin:null, priceMax:null, sort:"area,restaurant,menu"
+    };
     const $ = s => document.querySelector(s);
 
-    // ヘッダー高さを計測してCSS変数へ反映（見出しの被り防止）
-    function syncHeaderHeight(){
+    // ヘッダー高さ→CSS変数へ（theadのtopに反映）
+    function syncHeaderHeight() {
       const h = document.getElementById('pageHeader').offsetHeight;
       document.documentElement.style.setProperty('--headH', h + 'px');
     }
@@ -211,99 +243,99 @@
     window.addEventListener('resize', syncHeaderHeight);
 
     const yen = n => `¥${Number(n).toLocaleString('ja-JP')}`;
-    const priceStr = r => r.priceMin===r.priceMax ? yen(r.priceMin) : `${yen(r.priceMin)}〜${yen(r.priceMax)}`;
+    const priceStr = r => (r.priceMin === r.priceMax)
+      ? yen(r.priceMin) : `${yen(r.priceMin)}〜${yen(r.priceMax)}`;
 
-function initFilters(){
-  const areas = ["すべて", ...new Set(DATA.map(r=>r.area))];
-  $("#area").innerHTML = areas.map((a,i)=>`<option value="${i? a:"all"}">${a}</option>`).join("");
+    function initFilters() {
+      const areas = ["すべて", ...new Set(DATA.map(r => r.area))];
+      $("#area").innerHTML = areas.map((a,i)=>`<option value="${i? a:"all"}">${a}</option>`).join("");
 
-  const restaurants = ["すべて", ...Array.from(new Set(DATA.map(r=>r.restaurant))).sort((a,b)=>a.localeCompare(b,"ja"))];
-  $("#restaurant").innerHTML = restaurants.map((x,i)=>`<option value="${i? x:"all"}">${x}</option>`).join("");
+      const restaurants = ["すべて", ...Array.from(new Set(DATA.map(r=>r.restaurant))).sort((a,b)=>a.localeCompare(b,"ja"))];
+      $("#restaurant").innerHTML = restaurants.map((x,i)=>`<option value="${i? x:"all"}">${x}</option>`).join("");
 
-  const coasters = ["すべて", ...Array.from(new Set(DATA.map(r=>r.coaster))).sort((a,b)=>a.localeCompare(b,"ja"))];
-  $("#coaster").innerHTML = coasters.map((c,i)=>`<option value="${i? c:"all"}">${c}</option>`).join("");
+      const coasters = ["すべて", ...Array.from(new Set(DATA.map(r=>r.coaster))).sort((a,b)=>a.localeCompare(b,"ja"))];
+      $("#coaster").innerHTML = coasters.map((c,i)=>`<option value="${i? c:"all"}">${c}</option>`).join("");
 
-  // ← ここで min/max を計算して placeholder に入れる処理は削除！
-  // 代わりに明示的に placeholder を固定、値は空にしておく
-  const minI = $("#priceMin"), maxI = $("#priceMax");
-  minI.setAttribute("placeholder","価格min");
-  maxI.setAttribute("placeholder","価格max");
-  minI.value = "";
-  maxI.value = "";
-}
+      // 明示的にplaceholder固定＆値クリア
+      $("#priceMin").placeholder = "価格min";
+      $("#priceMax").placeholder = "価格max";
+      $("#priceMin").value = "";
+      $("#priceMax").value = "";
+    }
 
-
-    function getFiltered(){
-      const q  = (state.q||"").toLowerCase();
-      const aq = (state.authorQ||"").toLowerCase();
-      return DATA.filter(r=>{
-        if(state.area!=="all"       && r.area!==state.area) return false;
-        if(state.restaurant!=="all" && r.restaurant!==state.restaurant) return false;
-        if(state.coaster!=="all"    && r.coaster!==state.coaster) return false;
-        if(state.priceMin!=null     && r.priceMax < state.priceMin) return false;
-        if(state.priceMax!=null     && r.priceMin > state.priceMax) return false;
-        if(q  && !`${r.area} ${r.menu} ${r.restaurant} ${r.coaster}`.toLowerCase().includes(q)) return false;
-        if(aq && !(r.author||"").toLowerCase().includes(aq)) return false;
+    function getFiltered() {
+      const q  = (state.q || "").toLowerCase();
+      const aq = (state.authorQ || "").toLowerCase();
+      return DATA.filter(r => {
+        if (state.area!=="all"       && r.area!==state.area) return false;
+        if (state.restaurant!=="all" && r.restaurant!==state.restaurant) return false;
+        if (state.coaster!=="all"    && r.coaster!==state.coaster) return false;
+        if (state.priceMin!=null     && r.priceMax < state.priceMin)    return false;
+        if (state.priceMax!=null     && r.priceMin > state.priceMax)    return false;
+        if (q  && !`${r.area} ${r.menu} ${r.restaurant} ${r.coaster}`.toLowerCase().includes(q)) return false;
+        if (aq && !(r.author||"").toLowerCase().includes(aq)) return false;
         return true;
       }).sort(sortFn());
     }
 
-    function sortFn(){
-      const collator = new Intl.Collator('ja-JP');
+    function sortFn() {
+      const c = new Intl.Collator('ja-JP');
       return {
-        'area,restaurant,menu':(a,b)=>collator.compare(a.area,b.area)||collator.compare(a.restaurant,b.restaurant)||collator.compare(a.menu,b.menu),
-        'priceAsc':(a,b)=>(a.priceMin)-(b.priceMin),
-        'priceDesc':(a,b)=>(b.priceMin)-(a.priceMin),
-        'menu':(a,b)=>collator.compare(a.menu,b.menu),
-        'restaurant':(a,b)=>collator.compare(a.restaurant,b.restaurant)
+        'area,restaurant,menu':(a,b)=>c.compare(a.area,b.area)||c.compare(a.restaurant,b.restaurant)||c.compare(a.menu,b.menu),
+        'priceAsc': (a,b)=> (a.priceMin)-(b.priceMin),
+        'priceDesc':(a,b)=> (b.priceMin)-(a.priceMin),
+        'menu':     (a,b)=> c.compare(a.menu,b.menu),
+        'restaurant':(a,b)=>c.compare(a.restaurant,b.restaurant)
       }[state.sort];
     }
 
-    function render(){
+    function render() {
       const rows = getFiltered();
       const toRow = r => `
         <tr>
-          <td class="cell-area" data-label="エリア">${r.area}</td>
+          <td class="cell-area"    data-label="エリア">${r.area}</td>
           <td class="cell-menu">${r.menu}</td>
-          <td class="cell-author" data-label="考案者">${r.author||""}</td>
-          <td class="cell-shop" data-label="店舗"><a href="${r.url}" target="_blank" rel="noopener">${r.restaurant}</a></td>
+          <td class="cell-author"  data-label="考案者">${r.author || ""}</td>
+          <td class="cell-shop"    data-label="店舗"><a href="${r.url}" target="_blank" rel="noopener">${r.restaurant}</a></td>
           <td class="cell-coaster" data-label="コースター"><span class="pill">${r.coaster}</span></td>
-          <td class="cell-price" data-label="価格">${priceStr(r)}</td>
-        </tr>
-      `;
+          <td class="cell-price"   data-label="価格">${priceStr(r)}</td>
+        </tr>`;
       $("#tbody").innerHTML = rows.map(toRow).join("");
       $("#meta").textContent = `表示 ${rows.length} / 全${DATA.length}件`;
     }
 
-
-    function attach(){
-      $("#q").addEventListener('input',e=>{ state.q = e.target.value; render(); });
-      $("#authorQ").addEventListener('input',e=>{ state.authorQ = e.target.value; render(); });
-      $("#area").addEventListener('change',e=>{ state.area = e.target.value; render(); });
-      $("#restaurant").addEventListener('change',e=>{ state.restaurant = e.target.value; render(); });
-      $("#coaster").addEventListener('change',e=>{ state.coaster = e.target.value; render(); });
-      $("#priceMin").addEventListener('input',e=>{ state.priceMin = e.target.value? Number(e.target.value): null; render(); });
-      $("#priceMax").addEventListener('input',e=>{ state.priceMax = e.target.value? Number(e.target.value): null; render(); });
-      $("#sort").addEventListener('change',e=>{ state.sort = e.target.value; render(); });
-      $("#exportShown").addEventListener('click',()=>{
+    function attach() {
+      $("#q").addEventListener('input', e => { state.q = e.target.value; render(); });
+      $("#authorQ").addEventListener('input', e => { state.authorQ = e.target.value; render(); });
+      $("#area").addEventListener('change', e => { state.area = e.target.value; render(); });
+      $("#restaurant").addEventListener('change', e => { state.restaurant = e.target.value; render(); });
+      $("#coaster").addEventListener('change', e => { state.coaster = e.target.value; render(); });
+      $("#priceMin").addEventListener('input', e => { state.priceMin = e.target.value ? Number(e.target.value) : null; render(); });
+      $("#priceMax").addEventListener('input', e => { state.priceMax = e.target.value ? Number(e.target.value) : null; render(); });
+      $("#sort").addEventListener('change', e => { state.sort = e.target.value; render(); });
+      $("#exportShown").addEventListener('click', () => {
         const csv = toCSV(getFiltered());
         download('tdc_food.csv', csv);
       });
     }
 
-    function toCSV(rows){
+    function toCSV(rows) {
       const header = ["エリア名","メニュー名","考案者","店舗名","店舗リンク","コースター","価格"];
       const lines = [header.join(",")];
-      for(const r of rows){
-        lines.push([r.area,r.menu,r.author||"",r.restaurant,r.url,r.coaster,priceStr(r)].map(csvEscape).join(","));
+      for (const r of rows) {
+        lines.push([r.area,r.menu,r.author||"",r.restaurant,r.url,r.coaster,priceStr(r)]
+          .map(csvEscape).join(","));
       }
       return lines.join("\n");
     }
-    function csvEscape(v){ const s=`${v??""}`.replace(/"/g,'""'); return /[",\n]/.test(s)?`"${s}"`:s; }
-    function download(name,text){
-      const a=document.createElement('a');
-      a.href=URL.createObjectURL(new Blob([text],{type:'text/csv'}));
-      a.download=name;
+    function csvEscape(v) {
+      const s = `${v ?? ""}`.replace(/"/g,'""');
+      return /[",\n]/.test(s) ? `"${s}"` : s;
+    }
+    function download(name, text) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([text], {type:'text/csv'}));
+      a.download = name;
       a.click();
     }
 
