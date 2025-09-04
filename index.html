@@ -119,9 +119,16 @@
         font-weight: 700;
       }
 
-      /* 価格行は右寄せ */
-      tbody td.cell-price { text-align: right; }
-      tbody td.cell-price::before { text-align: left; }
+      /* 価格も左寄せ（他と揃える） */
+      tbody td.cell-price{ text-align:left }
+      tbody td.cell-price::before{
+        content:"価格";
+        display:block;
+        margin-bottom:.2rem;
+        color:var(--muted);
+        font-weight:700;
+      }
+
 
       .pill { padding: 2px 7px; font-size: .78rem; }
       main { padding: 0 10px; }
