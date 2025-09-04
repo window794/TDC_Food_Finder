@@ -5,139 +5,158 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>TDC FOOD Finder｜トーキョー・ディスカバリー・シティ 2025</title>
         <style>
-    :root {
-      --bg1:#0b1220; --bg2:#0e1630; --text:#e8f0ff; --muted:#a9b6d5;
-      --accent:#7aa2ff; --accent2:#ff8ef2; --accent3:#7bffcc;
-      --headH: 96px;               /* JSでheaderの高さを実測して上書き */
-    }
+          :root {
+            --bg1:#0b1220; --bg2:#0e1630; --text:#e8f0ff; --muted:#a9b6d5;
+            --accent:#7aa2ff; --accent2:#ff8ef2; --accent3:#7bffcc;
+            --headH: 96px;               /* JSでheaderの高さを実測して上書き */
+          }
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; color: var(--text);
-      background: linear-gradient(180deg, var(--bg1), var(--bg2));
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
-    }
+          * { box-sizing: border-box; }
+          body {
+            margin: 0; color: var(--text);
+            background: linear-gradient(180deg, var(--bg1), var(--bg2));
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
+          }
 
-    /* ===== ヘッダー（検索UI） ===== */
-    header {
-      position: sticky; top: 0; z-index: 20;
-      background: rgba(8,12,26,.88);
-      backdrop-filter: blur(6px);
-      padding: 12px 16px 10px;
-      border-bottom: 1px solid #15203d;
-    }
-    h1 {
-      margin: 0 0 6px;
-      font-size: 1.4rem;
-      display: flex; gap: .4rem; align-items: center;
-    }
-    .controls { display: flex; flex-wrap: wrap; gap: .5rem; }
-    .controls input, .controls select {
-      padding: .45rem .6rem;
-      border-radius: 8px;
-      border: 1px solid #2a3557;
-      background: #0f1426;
-      color: var(--text);
-    }
-    button { padding: .55rem 1rem; border: none; border-radius: 8px; cursor: pointer; }
-    .btn-primary {
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      color: #071225; font-weight: 700;
-    }
+          /* ===== ヘッダー（検索UI） ===== */
+          header {
+            position: sticky; top: 0; z-index: 20;
+            background: rgba(8,12,26,.88);
+            backdrop-filter: blur(6px);
+            padding: 12px 16px 10px;
+            border-bottom: 1px solid #15203d;
+          }
+          h1 {
+            margin: 0 0 6px;
+            font-size: 1.4rem;
+            display: flex; gap: .4rem; align-items: center;
+          }
+          .controls { display: flex; flex-wrap: wrap; gap: .5rem; }
+          .controls input, .controls select {
+            padding: .45rem .6rem;
+            border-radius: 8px;
+            border: 1px solid #2a3557;
+            background: #0f1426;
+            color: var(--text);
+          }
+          button { padding: .55rem 1rem; border: none; border-radius: 8px; cursor: pointer; }
+          .btn-primary {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #071225; font-weight: 700;
+          }
 
-    /* ===== テーブル ===== */
-    main { padding: 0 8px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-    thead { position: sticky; top: var(--headH); z-index: 10; }   /* ← theadごと固定に */
-    th, td {
-      border-bottom: 1px solid #22304f;
-      padding: .65rem; text-align: left; background: #0d152b;
-    }
-    th {
-      background: #111a33;
-    }
-    td a { color: var(--accent3); text-decoration: none; }
-    .pill {
-      display: inline-block; padding: 2px 8px; border-radius: 999px;
-      background: rgba(122,162,255,.18); font-size: .8rem; border: 1px solid #2a4b7a;
-    }
-    .num { text-align: left; white-space: nowrap; }
-    #meta { margin-top: .4rem; color: var(--muted); }
-    footer { color: var(--muted); font-size: .8rem; padding: 18px; text-align: center; }
+          /* ===== テーブル ===== */
+          main { padding: 0 8px; }
+          table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+          thead { position: sticky; top: var(--headH); z-index: 10; }   /* ← theadごと固定に */
+          th, td {
+            border-bottom: 1px solid #22304f;
+            padding: .65rem; text-align: left; background: #0d152b;
+          }
+          th {
+            background: #111a33;
+          }
+          td a { color: var(--accent3); text-decoration: none; }
+          .pill {
+            display: inline-block; padding: 2px 8px; border-radius: 999px;
+            background: rgba(122,162,255,.18); font-size: .8rem; border: 1px solid #2a4b7a;
+          }
+          .num { text-align: left; white-space: nowrap; }
+          #meta { margin-top: .4rem; color: var(--muted); }
+          footer { color: var(--muted); font-size: .8rem; padding: 18px; text-align: center; }
 
-    /* デフォルト（PC/タブレット）ではカード用ラベルは出さない */
-    tbody td::before { content: none !important; }
+          /* デフォルト（PC/タブレット）ではカード用ラベルは出さない */
+          tbody td::before { content: none !important; }
 
-    /* ===== Mobile: テーブル→カード表示 ===== */
-    @media (max-width: 768px) {
-      .controls { gap: .6rem; }
-      .controls input, .controls select, .btn-primary { width: 100%; }
+          /* ===== Mobile: テーブル→カード表示 ===== */
+          @media (max-width: 768px) {
+            .controls { gap: .6rem; }
+            .controls input, .controls select, .btn-primary { width: 100%; }
 
-      thead { display: none; }  /* 見出しはカード内のラベルに置き換え */
+            thead { display: none; }  /* 見出しはカード内のラベルに置き換え */
 
-      table { border: none; }
-      tbody { display: block; }
-      tbody tr {
-        display: block;
-        margin: 12px 0;
-        border: 1px solid #1b2744;
-        border-radius: 12px;
-        overflow: hidden;
-        background: rgba(13,21,43,.92);
-        box-shadow: 0 6px 12px rgba(0,0,0,.18);
-      }
-      tbody td {
-        display: grid;
-        grid-template-columns: 7.5em 1fr;
-        gap: .45rem .6rem;
-        padding: .7rem .9rem;
-        border-top: 1px solid #22304f;
-      }
-      tbody tr td:first-child { border-top: none; }
+            table { border: none; }
+            tbody { display: block; }
+            tbody tr {
+              display: block;
+              margin: 12px 0;
+              border: 1px solid #1b2744;
+              border-radius: 12px;
+              overflow: hidden;
+              background: rgba(13,21,43,.92);
+              box-shadow: 0 6px 12px rgba(0,0,0,.18);
+            }
+            tbody td {
+              display: grid;
+              grid-template-columns: 7.5em 1fr;
+              gap: .45rem .6rem;
+              padding: .7rem .9rem;
+              border-top: 1px solid #22304f;
+            }
+            tbody tr td:first-child { border-top: none; }
 
-      /* ラベル（見出し）を擬似要素で表示（モバイルのみ） */
-      tbody td::before {
-        content: attr(data-label);
-        color: var(--muted);
-        font-weight: 700;
-        letter-spacing: .02em;
-      }
+            /* ラベル（見出し）を擬似要素で表示（モバイルのみ） */
+            tbody td::before {
+              content: attr(data-label);
+              color: var(--muted);
+              font-weight: 700;
+              letter-spacing: .02em;
+            }
 
-      /* メニュー名はカードのタイトル風に全幅 */
-      tbody td.cell-menu {
-        grid-template-columns: 1fr;
-        grid-column: 1 / -1;
-        font-size: 1.05rem;
-        line-height: 1.45;
-        border-top: 1px dashed #25355a;
-      }
-      tbody td.cell-menu::before {
-        content: "メニュー名";
-        margin-bottom: .2rem;
-        font-size: .85rem;
-        color: var(--muted);
-        font-weight: 700;
-      }
+            /* メニュー名はカードのタイトル風に全幅 */
+            tbody td.cell-menu {
+              grid-template-columns: 1fr;
+              grid-column: 1 / -1;
+              font-size: 1.05rem;
+              line-height: 1.45;
+              border-top: 1px dashed #25355a;
+            }
+            tbody td.cell-menu::before {
+              content: "メニュー名";
+              margin-bottom: .2rem;
+              font-size: .85rem;
+              color: var(--muted);
+              font-weight: 700;
+            }
 
-      /* 価格も左寄せ（他と揃える） */
-      tbody td.cell-price{ text-align:left }
-      tbody td.cell-price::before{
-        content:"価格";
-        display:block;
-        margin-bottom:.2rem;
-        color:var(--muted);
-        font-weight:700;
-      }
+            /* 価格も左寄せ（他と揃える） */
+            tbody td.cell-price{ text-align:left }
+            tbody td.cell-price::before{
+              content:"価格";
+              display:block;
+              margin-bottom:.2rem;
+              color:var(--muted);
+              font-weight:700;
+            }
 
 
-      .pill { padding: 2px 7px; font-size: .78rem; }
-      main { padding: 0 10px; }
-    }
+            .pill { padding: 2px 7px; font-size: .78rem; }
+            main { padding: 0 10px; }
+          }
+          /* ==== フィルタ開閉ボタン ==== */
+          .toggle{
+            display:none;            /* PCでは非表示 */
+            margin-left:auto;
+            padding:.45rem .8rem;
+            border:1px solid #2a3557;
+            background:#0f1426;
+            color:var(--text);
+            border-radius:8px;
+          }
+          header.collapsed .controls,
+          header.collapsed #meta{ display:none; }   /* 閉じたときは検索UIを隠す */
+
+          /* モバイル時のみボタンを出す＆デフォルトは閉じる */
+          @media (max-width:768px){
+            .toggle{ display:inline-flex; align-items:center; gap:.25rem; }
+          }
+
         </style>
     </head>
     <body>
         <header id="pageHeader">
             <h1>🪐 TDC FOOD Finder（非公式）</h1>
+              <button id="toggleFilters" class="toggle" aria-expanded="true">🔎 フィルタを隠す</button>
             <div class="controls">
                 <input id="q" type="text" placeholder="キーワード検索（メニュー/店舗/エリア/コースター）">
                 <input id="authorQ" type="text" placeholder="考案者検索">
@@ -190,164 +209,198 @@
             / 非公式整理サイトにつき、TDC、および株式会社batonとは一切関係がありません。
         </footer>
         <script>
-    /* ===== データ ===== */
-    const DATA = [
-      {area:"ラクーア DELI & DISH",menu:"お昼ご飯かそれともおやつ？ エリンギのフォカッチャとアップルパイ",author:"河村拓哉",restaurant:"Half Saints BAKES",url:"https://tokyo-discovery-city.quizknock.com/food/#halfsaints",coaster:"ボイスB",priceMin:1080,priceMax:1080},
-      {area:"ラクーア DELI & DISH",menu:"夜の始まり黄昏チキンフォカッチャ＆ピーチパイ",author:"東言",restaurant:"Half Saints BAKES",url:"https://tokyo-discovery-city.quizknock.com/food/#halfsaints",coaster:"謎B",priceMin:1080,priceMax:1080},
-      {area:"ラクーア DELI & DISH",menu:"飛び出せ！いちごのJAM IN THE DONUTS",author:"東問",restaurant:"JACK IN THE DONUTS",url:"https://tokyo-discovery-city.quizknock.com/food/#jackinthedonuts",coaster:"ボイスB",priceMin:700,priceMax:700},
-      {area:"ラクーア DELI & DISH",menu:"ペパパププリン 〜ペッパー薫る濃厚パンプキンプリン〜",author:"山本祥彰",restaurant:"クラフトプリン製作所 vuke",url:"https://tokyo-discovery-city.quizknock.com/food/#vuke",coaster:"クイズA",priceMin:630,priceMax:630},
-      {area:"ラクーア DELI & DISH",menu:"虹にない夜の色、紅芋と紫芋のプリン",author:"河村拓哉",restaurant:"クラフトプリン製作所 vuke",url:"https://tokyo-discovery-city.quizknock.com/food/#vuke",coaster:"クイズB",priceMin:630,priceMax:630},
-      {area:"ラクーア DELI & DISH",menu:"日本初！伊沢が熱望したパーリンカ・シュークリーム",author:"伊沢拓司",restaurant:"アトリエ・ド・マー",url:"https://tokyo-discovery-city.quizknock.com/food/#atelier",coaster:"謎A",priceMin:800,priceMax:800},
-      {area:"ラクーア DELI & DISH",menu:"フルーツチーズタルト・シアン（#00FFFF）",author:"ふくらP",restaurant:"アトリエ・ド・マー",url:"https://tokyo-discovery-city.quizknock.com/food/#atelier",coaster:"クイズB",priceMin:800,priceMax:800},
-      {area:"ラクーア DELI & DISH",menu:"汁なしタンタン・ヴィオレ",author:"伊沢拓司",restaurant:"フレンチヌードルファクトリー",url:"https://tokyo-discovery-city.quizknock.com/food/#french",coaster:"ボイスA",priceMin:1380,priceMax:1380},
-      {area:"ラクーア DELI & DISH",menu:"いちごクリームソーダ〜派手で甘くてアイス付きってガチ最強やん〜",author:"須貝駿貴",restaurant:"フレンチヌードルファクトリー",url:"https://tokyo-discovery-city.quizknock.com/food/#french",coaster:"謎A",priceMin:780,priceMax:780},
-      {area:"ラクーア DELI & DISH",menu:"“いちご”一会",author:"須貝駿貴",restaurant:"一〇八抹茶茶廊",url:"https://tokyo-discovery-city.quizknock.com/food/#108matcha",coaster:"ボイスA",priceMin:800,priceMax:800},
-      {area:"ラクーア DELI & DISH",menu:"燦々（さんさん）",author:"東言",restaurant:"銀座 菊廼舎",url:"https://tokyo-discovery-city.quizknock.com/food/#kikunoya",coaster:"謎A",priceMin:1296,priceMax:1296},
-      {area:"ラクーア DELI & DISH",menu:"南国の山本さんをイメージ！マンゴー杏仁",author:"鶴崎修功",restaurant:"日日包",url:"https://tokyo-discovery-city.quizknock.com/food/#nichinichipao",coaster:"クイズA",priceMin:918,priceMax:918},
-      {area:"ラクーア",menu:"塩分はポテトで摂るのが1番！タコスミートポテト",author:"鶴崎修功",restaurant:"ミゲルフアニ",url:"https://tokyo-discovery-city.quizknock.com/food/#miguel",coaster:"ボイスA",priceMin:1280,priceMax:1280},
-      {area:"ラクーア",menu:"須貝スペシャルオレンジフロート 通年メニューにしませんか？",author:"須貝駿貴",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"クイズA",priceMin:1000,priceMax:1000},
-      {area:"ラクーア",menu:"バナナチョコミルク 斑状組織風",author:"ふくらP",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"謎A",priceMin:1000,priceMax:1000},
-      {area:"ラクーア",menu:"白い革命〜カレー×クレープ〜",author:"伊沢拓司",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"謎B",priceMin:1200,priceMax:1200},
-      {area:"ラクーア",menu:"灯火親しむべし！かぼちゃのトーチクレープ",author:"山本祥彰",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"クイズB",priceMin:1200,priceMax:1200},
-      {area:"スパ ラクーア",menu:"トマ～トソ～ス！う～んトレビア～ン！",author:"東言",restaurant:"CAFE CASA＆Deli",url:"https://tokyo-discovery-city.quizknock.com/food/#casa",coaster:"ボイスB",priceMin:1500,priceMax:1500},
-      {area:"スパ ラクーア",menu:"アセロラサンライズフロート",author:"河村拓哉",restaurant:"dayoff cafe",url:"https://tokyo-discovery-city.quizknock.com/food/#dayoff",coaster:"謎A",priceMin:850,priceMax:850},
-      {area:"スパ ラクーア",menu:"珈琲車厘（コーヒーゼリー）",author:"須貝駿貴",restaurant:"R.S. BAR",url:"https://tokyo-discovery-city.quizknock.com/food/#rsbar",coaster:"クイズB",priceMin:1200,priceMax:1200},
-      {area:"スパ ラクーア",menu:"秉燭夜遊（へいしょくやゆう）",author:"山本祥彰",restaurant:"THE BAR",url:"https://tokyo-discovery-city.quizknock.com/food/#thebar",coaster:"謎B",priceMin:1200,priceMax:1200},
-      {area:"スパ ラクーア",menu:"◯が10個も！大正解・丸十ブンカレー〜ココナッツ風味〜",author:"伊沢拓司",restaurant:"ニャーヴェトナム",url:"https://www.laqua.jp/spa/facilities/restaurants/nha-vietnam/",coaster:"ボイスA",priceMin:1500,priceMax:1500},
-      {area:"スパ ラクーア",menu:"最もおいしい飲み物、ヨーグルト",author:"鶴崎修功",restaurant:"バーデカフェ",url:"https://www.laqua.jp/spa/facilities/restaurants/barde_cafe/",coaster:"謎B",priceMin:980,priceMax:980},
-      {area:"スパ ラクーア",menu:"思わず正座もくずしちゃうホワイトホットうどん",author:"山本祥彰",restaurant:"よ志のやダイニング",url:"https://www.laqua.jp/spa/facilities/restaurants/yoshinoya/",coaster:"ボイスB",priceMin:2500,priceMax:2500},
-      {area:"スパ ラクーア",menu:"満喫パンケーキ∵マンゴー&キウイフルーツ",author:"ふくらP",restaurant:"ラウンジカフェ",url:"https://www.laqua.jp/spa/facilities/restaurants/lounge_cafe/",coaster:"クイズA",priceMin:1500,priceMax:1500},
-      {area:"東京ドームシティ アトラクションズ",menu:"夜のアクアマリン",author:"ふくらP",restaurant:"マリオンクレープ（アトラクションズ店）",url:"https://tokyo-discovery-city.quizknock.com/food/#marion",coaster:"謎B",priceMin:1000,priceMax:1000},
-      {area:"東京ドームシティ アトラクションズ",menu:"やったー！ツナとごぼうのクレープ！",author:"東言",restaurant:"マリオンクレープ（アトラクションズ店）",url:"https://tokyo-discovery-city.quizknock.com/food/#marion",coaster:"ボイスB",priceMin:1000,priceMax:1000},
-      {area:"東京ドームホテル",menu:"ciel tricolore",author:"東問",restaurant:"43F スカイラウンジ＆ダイニング「アーティスト カフェ」スタンディングバー",url:"https://tokyo-discovery-city.quizknock.com/food/#artist",coaster:"クイズA",priceMin:1800,priceMax:1800},
-      {area:"東京ドームホテル",menu:"comet hunter",author:"ふくらP",restaurant:"43F スカイラウンジ＆ダイニング「アーティスト カフェ」スタンディングバー",url:"https://tokyo-discovery-city.quizknock.com/food/#artist",coaster:"ボイスA",priceMin:2000,priceMax:2000},
-      {area:"東京ドームホテル",menu:"サンセットピーチティー",author:"東言",restaurant:"6F バー「2000」",url:"https://tokyo-discovery-city.quizknock.com/food/#bar2000",coaster:"クイズA",priceMin:1800,priceMax:1800},
-      {area:"東京ドームホテル",menu:"Galaxy 〜ギャラクシー〜",author:"須貝駿貴",restaurant:"6F バー「2000」",url:"https://tokyo-discovery-city.quizknock.com/food/#bar2000",coaster:"謎B",priceMin:2000,priceMax:2000},
-      {area:"FOOD STADIUM TOKYO",menu:"問題！タコスが生まれた国はメ/ ﾋﾟﾝﾎﾟﾝ 日本！正解！早押しタコライス",author:"山本祥彰",restaurant:"Don Chava",url:"https://tokyo-discovery-city.quizknock.com/food/#donchava",coaster:"謎A",priceMin:1280,priceMax:1280},
-      {area:"FOOD STADIUM TOKYO",menu:"タコスセット（タコスの「ス」って複数形のsだからセットじゃなかったらただのタコだったよ、よかったね）",author:"河村拓哉",restaurant:"Don Chava",url:"https://tokyo-discovery-city.quizknock.com/food/#donchava",coaster:"謎B",priceMin:1500,priceMax:1500},
-      {area:"FOOD STADIUM TOKYO",menu:"丘に立つ月見鶏ちゃんぽん〜揚げナスを添えて〜",author:"東問",restaurant:"蟻月",url:"https://tokyo-discovery-city.quizknock.com/food/#arizuki",coaster:"クイズB",priceMin:1480,priceMax:1480},
-      {area:"FOOD STADIUM TOKYO",menu:"二つの味が吹き抜ける！海鮮 ギンヌンガガップ丼",author:"東問",restaurant:"水道橋 すしわさび",url:"https://tokyo-discovery-city.quizknock.com/food/#sushiyasasabi",coaster:"ボイスB",priceMin:1320,priceMax:1320},
-      {area:"Space Travelium TeNQ",menu:"チョコバナナラテ、天の川の『の』の香り",author:"鶴崎修功",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"ボイスA",priceMin:880,priceMax:880},
-      {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（コーヒー）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:800,priceMax:800},
-      {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（カフェラテ）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:850,priceMax:850},
-      {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（抹茶ラテ）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:900,priceMax:900},
-      {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（ミルクティー）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:900,priceMax:900}
-    ];
+          /* ===== データ ===== */
+          const DATA = [
+            {area:"ラクーア DELI & DISH",menu:"お昼ご飯かそれともおやつ？ エリンギのフォカッチャとアップルパイ",author:"河村拓哉",restaurant:"Half Saints BAKES",url:"https://tokyo-discovery-city.quizknock.com/food/#halfsaints",coaster:"ボイスB",priceMin:1080,priceMax:1080},
+            {area:"ラクーア DELI & DISH",menu:"夜の始まり黄昏チキンフォカッチャ＆ピーチパイ",author:"東言",restaurant:"Half Saints BAKES",url:"https://tokyo-discovery-city.quizknock.com/food/#halfsaints",coaster:"謎B",priceMin:1080,priceMax:1080},
+            {area:"ラクーア DELI & DISH",menu:"飛び出せ！いちごのJAM IN THE DONUTS",author:"東問",restaurant:"JACK IN THE DONUTS",url:"https://tokyo-discovery-city.quizknock.com/food/#jackinthedonuts",coaster:"ボイスB",priceMin:700,priceMax:700},
+            {area:"ラクーア DELI & DISH",menu:"ペパパププリン 〜ペッパー薫る濃厚パンプキンプリン〜",author:"山本祥彰",restaurant:"クラフトプリン製作所 vuke",url:"https://tokyo-discovery-city.quizknock.com/food/#vuke",coaster:"クイズA",priceMin:630,priceMax:630},
+            {area:"ラクーア DELI & DISH",menu:"虹にない夜の色、紅芋と紫芋のプリン",author:"河村拓哉",restaurant:"クラフトプリン製作所 vuke",url:"https://tokyo-discovery-city.quizknock.com/food/#vuke",coaster:"クイズB",priceMin:630,priceMax:630},
+            {area:"ラクーア DELI & DISH",menu:"日本初！伊沢が熱望したパーリンカ・シュークリーム",author:"伊沢拓司",restaurant:"アトリエ・ド・マー",url:"https://tokyo-discovery-city.quizknock.com/food/#atelier",coaster:"謎A",priceMin:800,priceMax:800},
+            {area:"ラクーア DELI & DISH",menu:"フルーツチーズタルト・シアン（#00FFFF）",author:"ふくらP",restaurant:"アトリエ・ド・マー",url:"https://tokyo-discovery-city.quizknock.com/food/#atelier",coaster:"クイズB",priceMin:800,priceMax:800},
+            {area:"ラクーア DELI & DISH",menu:"汁なしタンタン・ヴィオレ",author:"伊沢拓司",restaurant:"フレンチヌードルファクトリー",url:"https://tokyo-discovery-city.quizknock.com/food/#french",coaster:"ボイスA",priceMin:1380,priceMax:1380},
+            {area:"ラクーア DELI & DISH",menu:"いちごクリームソーダ〜派手で甘くてアイス付きってガチ最強やん〜",author:"須貝駿貴",restaurant:"フレンチヌードルファクトリー",url:"https://tokyo-discovery-city.quizknock.com/food/#french",coaster:"謎A",priceMin:780,priceMax:780},
+            {area:"ラクーア DELI & DISH",menu:"“いちご”一会",author:"須貝駿貴",restaurant:"一〇八抹茶茶廊",url:"https://tokyo-discovery-city.quizknock.com/food/#108matcha",coaster:"ボイスA",priceMin:800,priceMax:800},
+            {area:"ラクーア DELI & DISH",menu:"燦々（さんさん）",author:"東言",restaurant:"銀座 菊廼舎",url:"https://tokyo-discovery-city.quizknock.com/food/#kikunoya",coaster:"謎A",priceMin:1296,priceMax:1296},
+            {area:"ラクーア DELI & DISH",menu:"南国の山本さんをイメージ！マンゴー杏仁",author:"鶴崎修功",restaurant:"日日包",url:"https://tokyo-discovery-city.quizknock.com/food/#nichinichipao",coaster:"クイズA",priceMin:918,priceMax:918},
+            {area:"ラクーア",menu:"塩分はポテトで摂るのが1番！タコスミートポテト",author:"鶴崎修功",restaurant:"ミゲルフアニ",url:"https://tokyo-discovery-city.quizknock.com/food/#miguel",coaster:"ボイスA",priceMin:1280,priceMax:1280},
+            {area:"ラクーア",menu:"須貝スペシャルオレンジフロート 通年メニューにしませんか？",author:"須貝駿貴",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"クイズA",priceMin:1000,priceMax:1000},
+            {area:"ラクーア",menu:"バナナチョコミルク 斑状組織風",author:"ふくらP",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"謎A",priceMin:1000,priceMax:1000},
+            {area:"ラクーア",menu:"白い革命〜カレー×クレープ〜",author:"伊沢拓司",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"謎B",priceMin:1200,priceMax:1200},
+            {area:"ラクーア",menu:"灯火親しむべし！かぼちゃのトーチクレープ",author:"山本祥彰",restaurant:"creperie kenny's",url:"https://tokyo-discovery-city.quizknock.com/food/#kennys",coaster:"クイズB",priceMin:1200,priceMax:1200},
+            {area:"スパ ラクーア",menu:"トマ～トソ～ス！う～んトレビア～ン！",author:"東言",restaurant:"CAFE CASA＆Deli",url:"https://tokyo-discovery-city.quizknock.com/food/#casa",coaster:"ボイスB",priceMin:1500,priceMax:1500},
+            {area:"スパ ラクーア",menu:"アセロラサンライズフロート",author:"河村拓哉",restaurant:"dayoff cafe",url:"https://tokyo-discovery-city.quizknock.com/food/#dayoff",coaster:"謎A",priceMin:850,priceMax:850},
+            {area:"スパ ラクーア",menu:"珈琲車厘（コーヒーゼリー）",author:"須貝駿貴",restaurant:"R.S. BAR",url:"https://tokyo-discovery-city.quizknock.com/food/#rsbar",coaster:"クイズB",priceMin:1200,priceMax:1200},
+            {area:"スパ ラクーア",menu:"秉燭夜遊（へいしょくやゆう）",author:"山本祥彰",restaurant:"THE BAR",url:"https://tokyo-discovery-city.quizknock.com/food/#thebar",coaster:"謎B",priceMin:1200,priceMax:1200},
+            {area:"スパ ラクーア",menu:"◯が10個も！大正解・丸十ブンカレー〜ココナッツ風味〜",author:"伊沢拓司",restaurant:"ニャーヴェトナム",url:"https://www.laqua.jp/spa/facilities/restaurants/nha-vietnam/",coaster:"ボイスA",priceMin:1500,priceMax:1500},
+            {area:"スパ ラクーア",menu:"最もおいしい飲み物、ヨーグルト",author:"鶴崎修功",restaurant:"バーデカフェ",url:"https://www.laqua.jp/spa/facilities/restaurants/barde_cafe/",coaster:"謎B",priceMin:980,priceMax:980},
+            {area:"スパ ラクーア",menu:"思わず正座もくずしちゃうホワイトホットうどん",author:"山本祥彰",restaurant:"よ志のやダイニング",url:"https://www.laqua.jp/spa/facilities/restaurants/yoshinoya/",coaster:"ボイスB",priceMin:2500,priceMax:2500},
+            {area:"スパ ラクーア",menu:"満喫パンケーキ∵マンゴー&キウイフルーツ",author:"ふくらP",restaurant:"ラウンジカフェ",url:"https://www.laqua.jp/spa/facilities/restaurants/lounge_cafe/",coaster:"クイズA",priceMin:1500,priceMax:1500},
+            {area:"東京ドームシティ アトラクションズ",menu:"夜のアクアマリン",author:"ふくらP",restaurant:"マリオンクレープ（アトラクションズ店）",url:"https://tokyo-discovery-city.quizknock.com/food/#marion",coaster:"謎B",priceMin:1000,priceMax:1000},
+            {area:"東京ドームシティ アトラクションズ",menu:"やったー！ツナとごぼうのクレープ！",author:"東言",restaurant:"マリオンクレープ（アトラクションズ店）",url:"https://tokyo-discovery-city.quizknock.com/food/#marion",coaster:"ボイスB",priceMin:1000,priceMax:1000},
+            {area:"東京ドームホテル",menu:"ciel tricolore",author:"東問",restaurant:"43F スカイラウンジ＆ダイニング「アーティスト カフェ」スタンディングバー",url:"https://tokyo-discovery-city.quizknock.com/food/#artist",coaster:"クイズA",priceMin:1800,priceMax:1800},
+            {area:"東京ドームホテル",menu:"comet hunter",author:"ふくらP",restaurant:"43F スカイラウンジ＆ダイニング「アーティスト カフェ」スタンディングバー",url:"https://tokyo-discovery-city.quizknock.com/food/#artist",coaster:"ボイスA",priceMin:2000,priceMax:2000},
+            {area:"東京ドームホテル",menu:"サンセットピーチティー",author:"東言",restaurant:"6F バー「2000」",url:"https://tokyo-discovery-city.quizknock.com/food/#bar2000",coaster:"クイズA",priceMin:1800,priceMax:1800},
+            {area:"東京ドームホテル",menu:"Galaxy 〜ギャラクシー〜",author:"須貝駿貴",restaurant:"6F バー「2000」",url:"https://tokyo-discovery-city.quizknock.com/food/#bar2000",coaster:"謎B",priceMin:2000,priceMax:2000},
+            {area:"FOOD STADIUM TOKYO",menu:"問題！タコスが生まれた国はメ/ ﾋﾟﾝﾎﾟﾝ 日本！正解！早押しタコライス",author:"山本祥彰",restaurant:"Don Chava",url:"https://tokyo-discovery-city.quizknock.com/food/#donchava",coaster:"謎A",priceMin:1280,priceMax:1280},
+            {area:"FOOD STADIUM TOKYO",menu:"タコスセット（タコスの「ス」って複数形のsだからセットじゃなかったらただのタコだったよ、よかったね）",author:"河村拓哉",restaurant:"Don Chava",url:"https://tokyo-discovery-city.quizknock.com/food/#donchava",coaster:"謎B",priceMin:1500,priceMax:1500},
+            {area:"FOOD STADIUM TOKYO",menu:"丘に立つ月見鶏ちゃんぽん〜揚げナスを添えて〜",author:"東問",restaurant:"蟻月",url:"https://tokyo-discovery-city.quizknock.com/food/#arizuki",coaster:"クイズB",priceMin:1480,priceMax:1480},
+            {area:"FOOD STADIUM TOKYO",menu:"二つの味が吹き抜ける！海鮮 ギンヌンガガップ丼",author:"東問",restaurant:"水道橋 すしわさび",url:"https://tokyo-discovery-city.quizknock.com/food/#sushiyasasabi",coaster:"ボイスB",priceMin:1320,priceMax:1320},
+            {area:"Space Travelium TeNQ",menu:"チョコバナナラテ、天の川の『の』の香り",author:"鶴崎修功",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"ボイスA",priceMin:880,priceMax:880},
+            {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（コーヒー）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:800,priceMax:800},
+            {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（カフェラテ）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:850,priceMax:850},
+            {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（抹茶ラテ）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:900,priceMax:900},
+            {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（ミルクティー）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://tokyo-discovery-city.quizknock.com/food/#tenq",coaster:"クイズB",priceMin:900,priceMax:900}
+          ];
 
-    /* ===== JS ===== */
-    const state = {
-      q:"", authorQ:"", area:"all", restaurant:"all", coaster:"all",
-      priceMin:null, priceMax:null, sort:"area,restaurant,menu"
-    };
-    const $ = s => document.querySelector(s);
+          /* ===== JS ===== */
+          const state = {
+            q:"", authorQ:"", area:"all", restaurant:"all", coaster:"all",
+            priceMin:null, priceMax:null, sort:"area,restaurant,menu"
+          };
+          const $ = s => document.querySelector(s);
 
-    // ヘッダー高さ→CSS変数へ（theadのtopに反映）
-    function syncHeaderHeight() {
-      const h = document.getElementById('pageHeader').offsetHeight;
-      document.documentElement.style.setProperty('--headH', h + 'px');
-    }
-    window.addEventListener('load', syncHeaderHeight);
-    window.addEventListener('resize', syncHeaderHeight);
+          // ヘッダー高さ→CSS変数へ（theadのtopに反映）
+          function syncHeaderHeight() {
+            const h = document.getElementById('pageHeader').offsetHeight;
+            document.documentElement.style.setProperty('--headH', h + 'px');
+          }
+          window.addEventListener('load', syncHeaderHeight);
+          window.addEventListener('resize', syncHeaderHeight);
 
-    const yen = n => `¥${Number(n).toLocaleString('ja-JP')}`;
-    const priceStr = r => (r.priceMin === r.priceMax)
-      ? yen(r.priceMin) : `${yen(r.priceMin)}〜${yen(r.priceMax)}`;
+          const yen = n => `¥${Number(n).toLocaleString('ja-JP')}`;
+          const priceStr = r => (r.priceMin === r.priceMax)
+            ? yen(r.priceMin) : `${yen(r.priceMin)}〜${yen(r.priceMax)}`;
 
-    function initFilters() {
-      const areas = ["すべて", ...new Set(DATA.map(r => r.area))];
-      $("#area").innerHTML = areas.map((a,i)=>`<option value="${i? a:"all"}">${a}</option>`).join("");
+          function initFilters() {
+            const areas = ["すべて", ...new Set(DATA.map(r => r.area))];
+            $("#area").innerHTML = areas.map((a,i)=>`<option value="${i? a:"all"}">${a}</option>`).join("");
 
-      const restaurants = ["すべて", ...Array.from(new Set(DATA.map(r=>r.restaurant))).sort((a,b)=>a.localeCompare(b,"ja"))];
-      $("#restaurant").innerHTML = restaurants.map((x,i)=>`<option value="${i? x:"all"}">${x}</option>`).join("");
+            const restaurants = ["すべて", ...Array.from(new Set(DATA.map(r=>r.restaurant))).sort((a,b)=>a.localeCompare(b,"ja"))];
+            $("#restaurant").innerHTML = restaurants.map((x,i)=>`<option value="${i? x:"all"}">${x}</option>`).join("");
 
-      const coasters = ["すべて", ...Array.from(new Set(DATA.map(r=>r.coaster))).sort((a,b)=>a.localeCompare(b,"ja"))];
-      $("#coaster").innerHTML = coasters.map((c,i)=>`<option value="${i? c:"all"}">${c}</option>`).join("");
+            const coasters = ["すべて", ...Array.from(new Set(DATA.map(r=>r.coaster))).sort((a,b)=>a.localeCompare(b,"ja"))];
+            $("#coaster").innerHTML = coasters.map((c,i)=>`<option value="${i? c:"all"}">${c}</option>`).join("");
 
-      // 明示的にplaceholder固定＆値クリア
-      $("#priceMin").placeholder = "価格min";
-      $("#priceMax").placeholder = "価格max";
-      $("#priceMin").value = "";
-      $("#priceMax").value = "";
-    }
+            // 明示的にplaceholder固定＆値クリア
+            $("#priceMin").placeholder = "価格min";
+            $("#priceMax").placeholder = "価格max";
+            $("#priceMin").value = "";
+            $("#priceMax").value = "";
+          }
 
-    function getFiltered() {
-      const q  = (state.q || "").toLowerCase();
-      const aq = (state.authorQ || "").toLowerCase();
-      return DATA.filter(r => {
-        if (state.area!=="all"       && r.area!==state.area) return false;
-        if (state.restaurant!=="all" && r.restaurant!==state.restaurant) return false;
-        if (state.coaster!=="all"    && r.coaster!==state.coaster) return false;
-        if (state.priceMin!=null     && r.priceMax < state.priceMin)    return false;
-        if (state.priceMax!=null     && r.priceMin > state.priceMax)    return false;
-        if (q  && !`${r.area} ${r.menu} ${r.restaurant} ${r.coaster}`.toLowerCase().includes(q)) return false;
-        if (aq && !(r.author||"").toLowerCase().includes(aq)) return false;
-        return true;
-      }).sort(sortFn());
-    }
+          function getFiltered() {
+            const q  = (state.q || "").toLowerCase();
+            const aq = (state.authorQ || "").toLowerCase();
+            return DATA.filter(r => {
+              if (state.area!=="all"       && r.area!==state.area) return false;
+              if (state.restaurant!=="all" && r.restaurant!==state.restaurant) return false;
+              if (state.coaster!=="all"    && r.coaster!==state.coaster) return false;
+              if (state.priceMin!=null     && r.priceMax < state.priceMin)    return false;
+              if (state.priceMax!=null     && r.priceMin > state.priceMax)    return false;
+              if (q  && !`${r.area} ${r.menu} ${r.restaurant} ${r.coaster}`.toLowerCase().includes(q)) return false;
+              if (aq && !(r.author||"").toLowerCase().includes(aq)) return false;
+              return true;
+            }).sort(sortFn());
+          }
 
-    function sortFn() {
-      const c = new Intl.Collator('ja-JP');
-      return {
-        'area,restaurant,menu':(a,b)=>c.compare(a.area,b.area)||c.compare(a.restaurant,b.restaurant)||c.compare(a.menu,b.menu),
-        'priceAsc': (a,b)=> (a.priceMin)-(b.priceMin),
-        'priceDesc':(a,b)=> (b.priceMin)-(a.priceMin),
-        'menu':     (a,b)=> c.compare(a.menu,b.menu),
-        'restaurant':(a,b)=>c.compare(a.restaurant,b.restaurant)
-      }[state.sort];
-    }
+          function sortFn() {
+            const c = new Intl.Collator('ja-JP');
+            return {
+              'area,restaurant,menu':(a,b)=>c.compare(a.area,b.area)||c.compare(a.restaurant,b.restaurant)||c.compare(a.menu,b.menu),
+              'priceAsc': (a,b)=> (a.priceMin)-(b.priceMin),
+              'priceDesc':(a,b)=> (b.priceMin)-(a.priceMin),
+              'menu':     (a,b)=> c.compare(a.menu,b.menu),
+              'restaurant':(a,b)=>c.compare(a.restaurant,b.restaurant)
+            }[state.sort];
+          }
 
-    function render() {
-      const rows = getFiltered();
-      const toRow = r => `
-        <tr>
-          <td class="cell-area"    data-label="エリア">${r.area}</td>
-          <td class="cell-menu">${r.menu}</td>
-          <td class="cell-author"  data-label="考案者">${r.author || ""}</td>
-          <td class="cell-shop"    data-label="店舗"><a href="${r.url}" target="_blank" rel="noopener">${r.restaurant}</a></td>
-          <td class="cell-coaster" data-label="コースター"><span class="pill">${r.coaster}</span></td>
-          <td class="cell-price"   data-label="価格">${priceStr(r)}</td>
-        </tr>`;
-      $("#tbody").innerHTML = rows.map(toRow).join("");
-      $("#meta").textContent = `表示 ${rows.length} / 全${DATA.length}件`;
-    }
+          function render() {
+            const rows = getFiltered();
+            const toRow = r => `
+              <tr>
+                <td class="cell-area"    data-label="エリア">${r.area}</td>
+                <td class="cell-menu">${r.menu}</td>
+                <td class="cell-author"  data-label="考案者">${r.author || ""}</td>
+                <td class="cell-shop"    data-label="店舗"><a href="${r.url}" target="_blank" rel="noopener">${r.restaurant}</a></td>
+                <td class="cell-coaster" data-label="コースター"><span class="pill">${r.coaster}</span></td>
+                <td class="cell-price"   data-label="価格">${priceStr(r)}</td>
+              </tr>`;
+            $("#tbody").innerHTML = rows.map(toRow).join("");
+            $("#meta").textContent = `表示 ${rows.length} / 全${DATA.length}件`;
+          }
 
-    function attach() {
-      $("#q").addEventListener('input', e => { state.q = e.target.value; render(); });
-      $("#authorQ").addEventListener('input', e => { state.authorQ = e.target.value; render(); });
-      $("#area").addEventListener('change', e => { state.area = e.target.value; render(); });
-      $("#restaurant").addEventListener('change', e => { state.restaurant = e.target.value; render(); });
-      $("#coaster").addEventListener('change', e => { state.coaster = e.target.value; render(); });
-      $("#priceMin").addEventListener('input', e => { state.priceMin = e.target.value ? Number(e.target.value) : null; render(); });
-      $("#priceMax").addEventListener('input', e => { state.priceMax = e.target.value ? Number(e.target.value) : null; render(); });
-      $("#sort").addEventListener('change', e => { state.sort = e.target.value; render(); });
-      $("#exportShown").addEventListener('click', () => {
-        const csv = toCSV(getFiltered());
-        download('tdc_food.csv', csv);
-      });
-    }
+          function attach() {
+            $("#q").addEventListener('input', e => { state.q = e.target.value; render(); });
+            $("#authorQ").addEventListener('input', e => { state.authorQ = e.target.value; render(); });
+            $("#area").addEventListener('change', e => { state.area = e.target.value; render(); });
+            $("#restaurant").addEventListener('change', e => { state.restaurant = e.target.value; render(); });
+            $("#coaster").addEventListener('change', e => { state.coaster = e.target.value; render(); });
+            $("#priceMin").addEventListener('input', e => { state.priceMin = e.target.value ? Number(e.target.value) : null; render(); });
+            $("#priceMax").addEventListener('input', e => { state.priceMax = e.target.value ? Number(e.target.value) : null; render(); });
+            $("#sort").addEventListener('change', e => { state.sort = e.target.value; render(); });
+            $("#exportShown").addEventListener('click', () => {
+              const csv = toCSV(getFiltered());
+              download('tdc_food.csv', csv);
+            });
+          }
 
-    function toCSV(rows) {
-      const header = ["エリア名","メニュー名","考案者","店舗名","店舗リンク","コースター","価格"];
-      const lines = [header.join(",")];
-      for (const r of rows) {
-        lines.push([r.area,r.menu,r.author||"",r.restaurant,r.url,r.coaster,priceStr(r)]
-          .map(csvEscape).join(","));
-      }
-      return lines.join("\n");
-    }
-    function csvEscape(v) {
-      const s = `${v ?? ""}`.replace(/"/g,'""');
-      return /[",\n]/.test(s) ? `"${s}"` : s;
-    }
-    function download(name, text) {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([text], {type:'text/csv'}));
-      a.download = name;
-      a.click();
-    }
+          function toCSV(rows) {
+            const header = ["エリア名","メニュー名","考案者","店舗名","店舗リンク","コースター","価格"];
+            const lines = [header.join(",")];
+            for (const r of rows) {
+              lines.push([r.area,r.menu,r.author||"",r.restaurant,r.url,r.coaster,priceStr(r)]
+                .map(csvEscape).join(","));
+            }
+            return lines.join("\n");
+          }
+          function csvEscape(v) {
+            const s = `${v ?? ""}`.replace(/"/g,'""');
+            return /[",\n]/.test(s) ? `"${s}"` : s;
+          }
+          function download(name, text) {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([text], {type:'text/csv'}));
+            a.download = name;
+            a.click();
+          }
+          // フィルタ開閉
+          function setupFilterToggle(){
+            const header = document.getElementById('pageHeader');
+            const btn = document.getElementById('toggleFilters');
 
-    // 初期化
-    initFilters(); attach(); render(); syncHeaderHeight();
+            // モバイルはデフォルトで閉じる
+            const isMobile = matchMedia('(max-width:768px)').matches;
+            if(isMobile){
+              header.classList.add('collapsed');
+              btn.textContent = "🔎 フィルタを表示";
+              btn.setAttribute('aria-expanded','false');
+              syncHeaderHeight();
+            }else{
+              btn.textContent = "🔎 フィルタを隠す";
+              btn.setAttribute('aria-expanded','true');
+            }
+
+            btn.addEventListener('click', ()=>{
+              header.classList.toggle('collapsed');
+              const collapsed = header.classList.contains('collapsed');
+              btn.textContent = collapsed ? "🔎 フィルタを表示" : "🔎 フィルタを隠す";
+              btn.setAttribute('aria-expanded', String(!collapsed));
+              syncHeaderHeight();   // sticky位置を更新
+            });
+
+            // 画面幅がしきい値をまたいだ時の扱い（PCに戻ったら必ず開く）
+            matchMedia('(max-width:768px)').addEventListener('change', e=>{
+              if(!e.matches){        // PC幅に戻った
+                header.classList.remove('collapsed');
+                btn.textContent = "🔎 フィルタを隠す";
+                btn.setAttribute('aria-expanded','true');
+                syncHeaderHeight();
+              }
+            });
+          }
+          // 初期化
+          initFilters(); attach(); render(); syncHeaderHeight(); setupFilterToggle();
         </script>
     </body>
 </html>
