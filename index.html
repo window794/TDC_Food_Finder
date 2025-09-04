@@ -39,6 +39,72 @@
     .num{text-align:right;white-space:nowrap}
     #meta{margin-top:.4rem;color:var(--muted)}
     footer{color:var(--muted);font-size:.8rem;padding:18px;text-align:center}
+    /* === Mobile: テーブル→カード表示 === */
+@media (max-width: 768px){
+  /* 入力UIを1列に */
+  .controls{ gap:.6rem }
+  .controls input,.controls select, .btn-primary{ width:100% }
+
+  /* テーブル見出しは非表示（カード内にラベル表示するので） */
+  thead{ display:none }
+
+  table{ border:none; }
+  tbody{ display:block }
+  tbody tr{
+    display:block;
+    margin:12px 0;
+    border:1px solid #1b2744;
+    border-radius:12px;
+    overflow:hidden;
+    background:rgba(13,21,43,.92);
+    box-shadow:0 6px 12px rgba(0,0,0,.18);
+  }
+
+  /* 各セル=2カラムの行（ラベル / 値） */
+  tbody td{
+    display:grid;
+    grid-template-columns: 7.5em 1fr;
+    gap:.45rem .6rem;
+    padding:.7rem .9rem;
+    border-top:1px solid #22304f;
+  }
+  /* 1つ目のセルだけ上のボーダーなし */
+  tbody tr td:first-child{ border-top:none }
+
+  /* ラベル（見出し）を擬似要素で表示 */
+  tbody td::before{
+    content: attr(data-label);
+    color: var(--muted);
+    font-weight:700;
+    letter-spacing:.02em;
+  }
+
+  /* メニュー名はカードの“タイトル”っぽく全幅で */
+  tbody td.cell-menu{
+    grid-template-columns: 1fr;
+    grid-column: 1 / -1;
+    font-size:1.05rem;
+    line-height:1.45;
+    border-top:1px dashed #25355a;
+  }
+  tbody td.cell-menu::before{
+    content:"メニュー名";
+    margin-bottom:.2rem;
+    font-size:.85rem;
+    color:var(--muted);
+    font-weight:700;
+  }
+
+  /* 価格行は右寄せ */
+  tbody td.cell-price{ text-align:right }
+  tbody td.cell-price::before{ text-align:left }
+
+  /* コースターのピルを少し小さく */
+  .pill{ padding:2px 7px; font-size:.78rem }
+
+  /* 余白調整 */
+  main{ padding:0 10px }
+}
         </style>
     </head>
     <body>
@@ -195,16 +261,20 @@ function initFilters(){
 
     function render(){
       const rows = getFiltered();
-      $("#tbody").innerHTML = rows.map(r=>`<tr>
-        <td>${r.area}</td>
-        <td>${r.menu}</td>
-        <td>${r.author||""}</td>
-        <td><a href="${r.url}" target="_blank" rel="noopener">${r.restaurant}</a></td>
-        <td><span class="pill">${r.coaster}</span></td>
-        <td class="num">${priceStr(r)}</td>
-      </tr>`).join("");
+      const toRow = r => `
+        <tr>
+          <td class="cell-area" data-label="エリア">${r.area}</td>
+          <td class="cell-menu">${r.menu}</td>
+          <td class="cell-author" data-label="考案者">${r.author||""}</td>
+          <td class="cell-shop" data-label="店舗"><a href="${r.url}" target="_blank" rel="noopener">${r.restaurant}</a></td>
+          <td class="cell-coaster" data-label="コースター"><span class="pill">${r.coaster}</span></td>
+          <td class="cell-price" data-label="価格">${priceStr(r)}</td>
+        </tr>
+      `;
+      $("#tbody").innerHTML = rows.map(toRow).join("");
       $("#meta").textContent = `表示 ${rows.length} / 全${DATA.length}件`;
     }
+
 
     function attach(){
       $("#q").addEventListener('input',e=>{ state.q = e.target.value; render(); });
