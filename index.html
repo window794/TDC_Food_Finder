@@ -74,12 +74,13 @@
         padding: .65rem;
         text-align: left;
         background: #0d152b;
+        vertical-align: middle;
       }
 
       th {
         background: #111a33;
         border: none; /* 見出し行は枠線なし */
-        white-space: nowrap; /* 改行禁止 */
+        white-space: nowrap; /* ← 見出しの折返し防止 */
       }
 
       tbody td {
@@ -96,43 +97,35 @@
       .pill {
         display: inline-block; padding: 2px 8px; border-radius: 999px;
         background: rgba(122,162,255,.18); font-size: .8rem; border: 1px solid #2a4b7a;
+        white-space: nowrap; /* ← pillの中も改行させない */
       }
       .num { text-align: left; white-space: nowrap; }
       #meta { margin-top: .4rem; color: var(--muted); }
       footer { color: var(--muted); font-size: .8rem; padding: 18px; text-align: center; }
 
-      /* === 改修点：考案者は必ず1行・メニュー名は可変 === */
+      /* ======== ★ PC表示だけの追加調整 ★ ======== */
+      /* 考案者は必ず1行（幅は内容に合わせて伸ばす） */
       td.cell-author{
-        white-space: nowrap;   /* 折り返し禁止（必ずフル表示） */
-        overflow: visible;
-        width: 1%;            /* 必要最小限のみ確保（テーブルに最小化させる） */
+        white-space: nowrap;
       }
-      td.cell-menu{
-        width: auto;          /* 残り幅を吸収 */
-        max-width: 40%;       /* 行を圧迫しすぎない上限 */
-        word-break: break-word;
-      }
-
-      /* === 追加改修：コースターは必ず1行、店舗は省略表示で短く === */
+      /* コースターは必ず1行・列に最低幅を与える */
       td.cell-coaster{
-        white-space: nowrap;  /* 改行させない */
-        width: 1%;            /* 必要最小限 */
+        white-space: nowrap;
+        min-width: 6.5em;   /* pillが折返されない程度の下限 */
       }
-      td.cell-coaster .pill{
-        white-space: nowrap;  /* 中の文字も1行固定 */
-        display: inline-block;
-      }
+      /* 店舗名は省略表示（…）可。列にも最低幅を与える */
       td.cell-shop{
-        width: 1%;            /* 列自体は最小化 */
+        min-width: 12rem;   /* ← 列がゼロ幅にならない保険 */
       }
       td.cell-shop > a{
         display: inline-block;
-        max-width: 22ch;      /* 店舗名の上限幅（必要なら調整） */
-        white-space: nowrap;  /* 1行 */
-        overflow: hidden;     /* はみ出しは隠す */
-        text-overflow: ellipsis; /* 省略記号 … */
+        max-width: 24ch;    /* ← 省略の長さは好みで調整 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         vertical-align: bottom;
       }
+      /* メニュー名は残り幅を自然に使う（指定なし） */
 
       /* デフォルト（PC/タブレット）ではカード用ラベルは出さない */
       tbody td::before { content: none !important; }
@@ -199,22 +192,6 @@
           font-weight:700;
         }
 
-        /* エリア・店舗は全幅にして読みやすく */
-        tbody td.cell-area,
-        tbody td.cell-shop {
-          grid-template-columns: 1fr;
-          grid-column: 1 / -1;
-          overflow-wrap: break-word;
-          word-break: normal;
-        }
-        tbody td.cell-area::before,
-        tbody td.cell-shop::before {
-          display: block;
-          margin-bottom: .2rem;
-          font-size: .85rem;
-          color: var(--muted);
-          font-weight: 700;
-        }
         .pill { padding: 2px 7px; font-size: .78rem; }
         main { padding: 0 10px; }
 
@@ -241,6 +218,25 @@
       @media (max-width:768px){
         .toggle{ display:inline-flex; align-items:center; gap:.25rem; }
       }
+
+      /* === モバイルで「エリア名」「店舗」をメニュー名と同じ全幅表示に === */
+      @media (max-width: 768px) {
+        tbody td.cell-area,
+        tbody td.cell-shop {
+          grid-template-columns: 1fr;   /* ラベル上／値は1列で全幅 */
+          grid-column: 1 / -1;          /* カード全幅に広げる */
+          overflow-wrap: break-word;    /* 長い英単語のみ必要時に折り返し */
+          word-break: normal;           /* 日本語の不自然な分割を避ける */
+        }
+        tbody td.cell-area::before,
+        tbody td.cell-shop::before {
+          display: block;
+          margin-bottom: .2rem;         /* ラベル下に余白 */
+          font-size: .85rem;
+          color: var(--muted);
+          font-weight: 700;
+        }
+      }
         </style>
     </head>
     <body>
@@ -249,57 +245,47 @@
             <button id="toggleFilters" class="toggle" aria-expanded="true">🔎 フィルタを隠す</button>
             <div class="controls">
                 <label>
-                    <span class="ctrl-label">キーワード</span>
-                    <input id="q" type="text" placeholder="メニュー / 店舗 / エリア / コースター">
+                  <span class="ctrl-label">キーワード</span>
+                  <input id="q" type="text" placeholder="メニュー / 店舗 / エリア / コースター">
                 </label>
                 <!-- ▼ 考案者：指定順のリストボックス -->
                 <label>
-                    <span class="ctrl-label">考案者</span>
-                    <select id="author" title="考案者"></select>
+                  <span class="ctrl-label">考案者</span>
+                  <select id="author" title="考案者"></select>
                 </label>
                 <label>
-                    <span class="ctrl-label">エリア</span>
-                    <select id="area" title="エリア"></select>
+                  <span class="ctrl-label">エリア</span>
+                  <select id="area" title="エリア"></select>
                 </label>
                 <label>
-                    <span class="ctrl-label">レストラン</span>
-                    <select id="restaurant" title="店舗"></select>
+                  <span class="ctrl-label">レストラン</span>
+                  <select id="restaurant" title="店舗"></select>
                 </label>
                 <label>
-                    <span class="ctrl-label">コースター</span>
-                    <select id="coaster" title="コースター"></select>
+                  <span class="ctrl-label">コースター</span>
+                  <select id="coaster" title="コースター"></select>
                 </label>
                 <label>
-                    <span class="ctrl-label">価格 min</span>
-                    <input
-                        id="priceMin"
-                        type="number"
-                        inputmode="numeric"
-                        placeholder="価格min"
-                    >
+                  <span class="ctrl-label">価格 min</span>
+                  <input id="priceMin" type="number" inputmode="numeric" placeholder="価格min">
                 </label>
                 <label>
-                    <span class="ctrl-label">価格 max</span>
-                    <input
-                        id="priceMax"
-                        type="number"
-                        inputmode="numeric"
-                        placeholder="価格max"
-                    >
+                  <span class="ctrl-label">価格 max</span>
+                  <input id="priceMax" type="number" inputmode="numeric" placeholder="価格max">
                 </label>
                 <label>
-                    <span class="ctrl-label">並び順</span>
-                    <select id="sort">
-                        <option value="area,restaurant,menu">並び:エリア→店舗→メニュー</option>
-                        <option value="priceAsc">価格の安い順</option>
-                        <option value="priceDesc">価格の高い順</option>
-                        <option value="menu">メニュー名順</option>
-                        <option value="restaurant">店舗名順</option>
-                    </select>
+                  <span class="ctrl-label">並び順</span>
+                  <select id="sort">
+                    <option value="area,restaurant,menu">並び:エリア→店舗→メニュー</option>
+                    <option value="priceAsc">価格の安い順</option>
+                    <option value="priceDesc">価格の高い順</option>
+                    <option value="menu">メニュー名順</option>
+                    <option value="restaurant">店舗名順</option>
+                  </select>
                 </label>
                 <label>
-                    <span class="ctrl-label">CSV</span>
-                    <button class="btn-primary" id="exportShown">表示中をCSV出力</button>
+                  <span class="ctrl-label">CSV</span>
+                  <button class="btn-primary" id="exportShown">表示中をCSV出力</button>
                 </label>
             </div>
             <div id="meta"></div>
@@ -374,6 +360,7 @@
             {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（抹茶ラテ）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe",coaster:"クイズB",priceMin:900,priceMax:900},
             {area:"Space Travelium TeNQ",menu:"プリントラテ『天幕』〜夜陰のシアター〜（ミルクティー）",author:"伊沢拓司",restaurant:"TeNQ CAFE 138",url:"https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe",coaster:"クイズB",priceMin:900,priceMax:900}
           ];
+
 
           /* ===== JS ===== */
           const state = {
