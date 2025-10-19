@@ -14,8 +14,12 @@ const state = {
 const $ = (s) => document.querySelector(s);
 
 function syncHeaderHeight() {
-  const h = document.getElementById("pageHeader").offsetHeight;
-  document.documentElement.style.setProperty("--headH", h + "px");
+  // フレームの次のサイクルで実行して、DOM更新が完了してから高さを計算
+  requestAnimationFrame(() => {
+    const header = document.getElementById("pageHeader");
+    const h = header.offsetHeight;
+    document.documentElement.style.setProperty("--headH", h + "px");
+  });
 }
 window.addEventListener("load", syncHeaderHeight);
 window.addEventListener("resize", syncHeaderHeight);
@@ -116,23 +120,36 @@ function sortFn() {
 
 function render() {
   const rows = getFiltered();
-  const toRow = (r) => `
-    <tr>
-      <td class="cell-area"    data-label="エリア">${r.area}</td>
-      <td class="cell-menu">${r.menu}</td>
-      <td class="cell-author"  data-label="考案者">${r.author || ""}</td>
-      <td class="cell-shop"    data-label="店舗"><a href="${
-        r.url
-      }" target="_blank" rel="noopener">${r.restaurant}</a></td>
-      <td class="cell-coaster" data-label="コースター"><span class="pill">${
-        r.coaster
-      }</span></td>
-      <td class="cell-price"   data-label="価格">${priceStr(r)}</td>
-    </tr>`;
-  $("#tbody").innerHTML = rows.map(toRow).join("");
-  $("#meta").textContent = `表示 ${rows.length} / 全${DATA.length}件`;
-}
+  const tbody = $("#tbody");
 
+  // 一時的に表示をクリアしてレイアウト計算をリセット
+  tbody.style.display = "none";
+  tbody.innerHTML = "";
+
+  // 次のフレームで実際のコンテンツを描画
+  requestAnimationFrame(() => {
+    const toRow = (r) => `
+      <tr>
+        <td class="cell-area"    data-label="エリア">${r.area}</td>
+        <td class="cell-menu">${r.menu}</td>
+        <td class="cell-author"  data-label="考案者">${r.author || ""}</td>
+        <td class="cell-shop"    data-label="店舗"><a href="${
+          r.url
+        }" target="_blank" rel="noopener">${r.restaurant}</a></td>
+        <td class="cell-coaster" data-label="コースター"><span class="pill">${
+          r.coaster
+        }</span></td>
+        <td class="cell-price"   data-label="価格">${priceStr(r)}</td>
+      </tr>`;
+
+    tbody.innerHTML = rows.map(toRow).join("");
+    tbody.style.display = "";
+    $("#meta").textContent = `表示 ${rows.length} / 全${DATA.length}件`;
+
+    // レンダリング完了後にヘッダー高さを再計算
+    syncHeaderHeight();
+  });
+}
 function attach() {
   $("#q").addEventListener("input", (e) => {
     state.q = e.target.value;
@@ -220,7 +237,8 @@ function setupFilterToggle() {
     header.classList.add("collapsed");
     btn.textContent = "🔎 フィルタを表示";
     btn.setAttribute("aria-expanded", "false");
-    syncHeaderHeight();
+    // フィルタ開閉後にヘッダー高さを再計算
+    setTimeout(syncHeaderHeight, 0);
   } else {
     btn.textContent = "🔎 フィルタを隠す";
     btn.setAttribute("aria-expanded", "true");
@@ -231,7 +249,8 @@ function setupFilterToggle() {
     const collapsed = header.classList.contains("collapsed");
     btn.textContent = collapsed ? "🔎 フィルタを表示" : "🔎 フィルタを隠す";
     btn.setAttribute("aria-expanded", String(!collapsed));
-    syncHeaderHeight();
+    // アニメーション完了後にヘッダー高さを再計算
+    setTimeout(syncHeaderHeight, 50);
   });
 
   matchMedia("(max-width:768px)").addEventListener("change", (e) => {
@@ -239,7 +258,7 @@ function setupFilterToggle() {
       header.classList.remove("collapsed");
       btn.textContent = "🔎 フィルタを隠す";
       btn.setAttribute("aria-expanded", "true");
-      syncHeaderHeight();
+      setTimeout(syncHeaderHeight, 0);
     }
   });
 }

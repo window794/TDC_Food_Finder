@@ -6,7 +6,7 @@
   --accent: #7aa2ff;
   --accent2: #ff8ef2;
   --accent3: #7bffcc;
-  --headH: 96px; /* JSでheaderの高さを実測して上書き */
+  --headH: 120px; /* JSでheaderの高さを実測して上書き（初期値を大きめに） */
   --ctrlH: 40px; /* コントロールの統一高さ */
 }
 
@@ -96,12 +96,21 @@ table {
   border: 1px solid rgba(255, 200, 100, 0.45);
   border-radius: 8px;
   background: rgba(11, 18, 32, 0.95);
+  /* テーブルレイアウトを強制的に安定化 */
+  table-layout: auto;
 }
 
 thead {
   position: sticky;
   top: var(--headH);
   z-index: 10;
+  /* 計算値が不正確な場合の最小値を保証 */
+  min-height: 0;
+  /* より確実なsticky位置を保証 */
+  background: #111a33;
+  /* ブラウザ拡大率による問題を軽減 */
+  transform: translateZ(0);
+  will-change: transform;
 }
 th,
 td {
@@ -115,10 +124,17 @@ th {
   background: #111a33;
   border: none; /* 見出し行は枠線なし */
   white-space: nowrap; /* ← 見出しの折返し防止 */
+  /* stickyヘッダーの背景を確実に設定 */
+  position: relative;
 }
 
 tbody td {
   border-bottom: 1px solid rgba(255, 200, 100, 0.35); /* 星色ライン */
+}
+
+tbody {
+  /* テーブル行の表示安定性を向上 */
+  position: relative;
 }
 
 tbody tr:hover {
