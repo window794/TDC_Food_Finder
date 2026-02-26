@@ -97,6 +97,7 @@
 ├── 🌟 celestial-chart.png            - 星座盤画像
 ├── 🐍 check_urls.py                  - 閉店店舗チェックスクリプト
 ├── 🔄 update_html.py                 - データ自動更新スクリプト
+├── 🖼️ resize_icon.py                 - PWAアイコン生成
 └── 📖 README.md                      - このファイル
 ```
 
