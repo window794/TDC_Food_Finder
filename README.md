@@ -2,6 +2,8 @@
 
 > 🌟 トーキョー・ディスカバリー・シティ 2025 コラボフード検索サイト（非公式）
 
+[![Stars](https://img.shields.io/github/stars/window794/TDC_Food_Finder?style=for-the-badge&color=D4AF37&labelColor=131d2a)](https://github.com/window794/TDC_Food_Finder/stargazers) [![Forks](https://img.shields.io/github/forks/window794/TDC_Food_Finder?style=for-the-badge&color=4a90d9&labelColor=131d2a)](https://github.com/window794/TDC_Food_Finder/forks) [![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-222?style=for-the-badge&logo=github&logoColor=white&labelColor=131d2a)](https://window794.github.io/TDC_Food_Finder/) [![PWA](https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white&labelColor=131d2a)](https://window794.github.io/TDC_Food_Finder/) [![Menus](https://img.shields.io/badge/収録メニュー-40件-D4AF37?style=for-the-badge&labelColor=131d2a)](https://window794.github.io/TDC_Food_Finder/) [![Unofficial](https://img.shields.io/badge/Fan%20Made-Unofficial-ff69b4?style=for-the-badge&labelColor=131d2a)](https://github.com/window794/TDC_Food_Finder)
+
 星座盤をテーマにした、QuizKnockコラボメニューの検索サイトです！
 
 ## 🌐 サイトURL
