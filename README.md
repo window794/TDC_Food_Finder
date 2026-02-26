@@ -1,22 +1,35 @@
-# 🪐 TDC FOOD Finder - Redesigned
+# ✨ TDC FOOD Finder - Redesigned
 
-> ✨ トーキョー・ディスカバリー・シティ 2025 コラボフード検索サイト（非公式）
+> 🌟 トーキョー・ディスカバリー・シティ 2025 コラボフード検索サイト（非公式）
 
-宇宙をテーマにした、QuizKnockコラボメニューの検索サイトです！
+星座盤をテーマにした、QuizKnockコラボメニューの検索サイトです！
 
 ## 🌐 サイトURL
 **👉 https://window794.github.io/TDC_Food_Finder/**
 
 ---
 
+## 技術スタック
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+## ホスティング
+
+![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222?style=for-the-badge&logo=github&logoColor=white)
+
+---
+
 ## 🌟 特徴
 
 ### 🎨 デザイン
-- **宇宙感たっぷり**の背景デザイン（深い紺→紫→黒のグラデーション）
-- **キラキラ光る星**のパーティクルアニメーション（100個！）
+- **星座盤モチーフ**の洗練されたデザイン
+- **深い青緑ネイビー**の背景（神秘的な夜空）
+- **金色**のエレガントなアクセントカラー
+- **明朝体フォント**（EB Garamond + Shippori Mincho）で上品な雰囲気
+- **Material Symbols**アイコンで視認性向上
 - **グラスモーフィズム**を採用したカード型レイアウト
 - ホバー時に**ふわっと浮く**インタラクション
-- **金色と紫**のアクセントカラー
+- **60個の星**が静かに瞬くアニメーション
 
 ### 🔍 機能
 - **リアルタイム検索** - 入力すると即座にフィルタリング
@@ -29,7 +42,7 @@
 
 ## 🚀 PWAとして使う
 
-このサイトは**PWA（Progressive Web App）**に対応しています！
+このサイトは **PWA（Progressive Web App）** に対応しています！
 
 ### 📲 インストール方法
 
@@ -64,16 +77,10 @@
 
 ---
 
-## 🛠️ 技術スタック
-
-- **HTML5** - セマンティックなマークアップ
-- **CSS3** - モダンなアニメーション・グラデーション
-- **Vanilla JavaScript** - フレームワークなしで軽量
-- **PWA** - Service Worker + Manifest
-
 ### 使用フォント
-- **Orbitron** - 宇宙感のあるタイトル用フォント
-- **Noto Sans JP** - 読みやすい日本語フォント
+- **EB Garamond** - エレガントなセリフ体（タイトル）
+- **Shippori Mincho** - 上品な明朝体（和文タイトル）
+- **Noto Serif JP** - 読みやすい明朝体（本文）
 
 ---
 
@@ -81,10 +88,13 @@
 
 ```
 📦 TDC Food Finder
-├── 🌐 tdc-food-finder-complete.html  - メインHTML（全データ込み）
+├── 🌐 index.html                     - メインHTML（全データ込み）
 ├── 📋 manifest.json                  - PWA設定
 ├── ⚙️ service-worker.js              - オフライン対応
 ├── 🎨 icon.svg                       - アプリアイコン
+├── 🌟 celestial-chart.png            - 星座盤画像
+├── 🐍 check_urls.py                  - 閉店店舗チェックスクリプト
+├── 🔄 update_html.py                 - データ自動更新スクリプト
 └── 📖 README.md                      - このファイル
 ```
 
@@ -113,16 +123,18 @@
 ### 🌌 配色
 | 色 | 用途 | カラーコード |
 |---|---|---|
-| 🌃 ダークパープル | 背景 | `#0a0e27` → `#1a1443` |
-| 💜 バイオレット | アクセント | `#8A2BE2` |
-| ✨ ゴールド | 強調・タイトル | `#FFD700` |
-| 🧊 ライトブルー | テキスト | `#B8C5FF` |
+| 🌃 ミッドナイトブルー | 背景グラデーション開始 | `#1a2836` |
+| 🌊 ディープネイビー | 背景グラデーション中間 | `#131d2a` |
+| 🌑 ダークナイト | 背景グラデーション終了 | `#0d1419` |
+| ✨ ゴールド | アクセント・強調 | `#D4AF37` |
+| 💫 ライトグレー | テキスト | `#d4dae5` |
+| 🎨 アイスグレー | ラベル・アイコン | `#a8b4c8` |
 
 ### ✨ アニメーション効果
-- **星の瞬き** - 3秒周期で明滅
+- **星の瞬き** - 4秒周期で優雅に明滅
 - **カードの浮遊** - ホバー時に10px上昇
 - **フェードイン** - ページ読み込み時にスムーズに表示
-- **光の流れ** - カードホバー時に光が横切る
+- **光の流れ** - カードホバー時に金色の光が横切る
 
 ---
 
@@ -136,16 +148,6 @@
 🎫 **コラボは終了しています**
 - このコラボは既に終了しています
 - 記録・アーカイブとしてご利用ください
-
----
-
-## 🎉 こんな人におすすめ
-
-- ✅ QuizKnockファン
-- ✅ TDCコラボに参加した思い出を振り返りたい人
-- ✅ どのメニューがあったか記録したい人
-- ✅ 宇宙デザインが好きな人
-- ✅ オシャレな検索サイトを使いたい人
 
 ---
 
@@ -172,9 +174,9 @@
 
 <div align="center">
 
-### 🪐 Made with 💜 for QuizKnock Fans
+### ✨ Made with 💛 for QuizKnock Fans
 
-**星空のように輝くメニューを探そう！**
+**星座盤のように輝くメニューを探そう！**
 
 ---
 
