@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="トーキョー・ディスカバリー・シティ 2025 コラボフード検索サイト（非公式）">
-    <meta name="theme-color" content="#8A2BE2">
-    <title>🪐 TDC FOOD Finder - Redesigned</title>
+    <meta name="theme-color" content="#1a2836">
+    <title>✨ TDC FOOD Finder - Redesigned</title>
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -14,7 +14,8 @@
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="apple-touch-icon" href="icon.svg">
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&family=Shippori+Mincho:wght@400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -23,12 +24,30 @@
         }
 
         body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1443 50%, #0d0221 100%);
+            font-family: 'Noto Serif JP', serif;
+            background: linear-gradient(180deg, #1a2836 0%, #131d2a 50%, #0d1419 100%);
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* Material Symbols Icons */
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 20;
+            font-size: 20px;
+            color: #a8b4c8;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+        .filter-toggle .material-symbols-outlined,
+        .btn .material-symbols-outlined {
+            color: inherit;
         }
 
         /* 星のパーティクル背景 */
@@ -44,13 +63,14 @@
 
         .star {
             position: absolute;
-            background: white;
+            background: #D4AF37;
             border-radius: 50%;
-            animation: twinkle 3s infinite;
+            animation: twinkle 4s infinite ease-in-out;
+            box-shadow: 0 0 3px rgba(212, 175, 55, 0.6);
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
+            0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
         }
 
@@ -87,21 +107,29 @@
         }
 
         h1 {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'EB Garamond', 'Shippori Mincho', serif;
             font-size: 3.5em;
-            font-weight: 900;
-            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 500;
+            color: #D4AF37;
             margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-            letter-spacing: 2px;
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.5);
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        h1 img {
+            width: 60px;
+            height: 60px;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
         }
 
         .subtitle {
             font-size: 1.1em;
-            color: #B8C5FF;
+            color: #d4dae5;
             margin-bottom: 30px;
             font-weight: 300;
         }
@@ -123,22 +151,22 @@
         }
 
         .filter-toggle {
-            background: linear-gradient(135deg, #8A2BE2, #4B0082);
+            background: linear-gradient(135deg, #B8860B, #D4AF37);
             border: none;
-            color: white;
+            color: #1a2836;
             padding: 12px 30px;
             border-radius: 25px;
             font-size: 1em;
             cursor: pointer;
             margin-bottom: 20px;
             transition: all 0.3s ease;
-            font-family: 'Noto Sans JP', sans-serif;
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+            font-family: 'Noto Serif JP', serif;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
         .filter-toggle:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
         }
 
         .filter-grid {
@@ -156,7 +184,7 @@
 
         .filter-group label {
             font-size: 0.9em;
-            color: #B8C5FF;
+            color: #d4dae5;
             font-weight: 500;
         }
 
@@ -168,19 +196,38 @@
             padding: 10px 15px;
             color: white;
             font-size: 0.95em;
-            font-family: 'Noto Sans JP', sans-serif;
+            font-family: 'Noto Serif JP', serif;
             transition: all 0.3s ease;
+            height: 44px !important;
+            max-height: 44px !important;
+            min-height: 44px !important;
+            line-height: normal !important;
+            box-sizing: border-box;
+            overflow: hidden;
+            display: block;
+            width: 100%;
+        }
+        
+        .filter-group select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 20px;
+            padding-right: 40px;
         }
 
         .filter-group input:focus,
         .filter-group select:focus {
             outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            border-color: #D4AF37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
 
         .filter-group select option {
-            background: #1a1443;
+            background: #1a2836;
             color: white;
         }
 
@@ -193,9 +240,9 @@
         }
 
         .food-card {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.1));
+            background: linear-gradient(135deg, rgba(26, 40, 54, 0.3), rgba(19, 29, 42, 0.3));
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 20px;
             padding: 25px;
             transition: all 0.3s ease;
@@ -217,8 +264,8 @@
 
         .food-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.4);
-            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+            border-color: rgba(212, 175, 55, 0.7);
         }
 
         .food-card::before {
@@ -228,7 +275,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.15), transparent);
             transform: rotate(45deg);
             transition: all 0.5s ease;
         }
@@ -239,23 +286,22 @@
 
         .card-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 8px;
             margin-bottom: 15px;
         }
 
         .card-title {
             font-size: 1.3em;
             font-weight: 700;
-            color: #FFD700;
-            margin-bottom: 5px;
+            color: #D4AF37;
+            line-height: 1.4;
         }
 
         .card-price {
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: 700;
-            color: #FFA500;
-            white-space: nowrap;
+            color: #D4AF37;
         }
 
         .card-info {
@@ -273,8 +319,9 @@
         }
 
         .info-label {
-            color: #B8C5FF;
+            color: #a8b4c8;
             min-width: 80px;
+            display: inline-block;
         }
 
         .info-value {
@@ -284,8 +331,8 @@
 
         .coaster-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #0a0e27;
+            background: linear-gradient(135deg, #B8860B, #D4AF37);
+            color: #1a2836;
             padding: 4px 12px;
             border-radius: 12px;
             font-size: 0.85em;
@@ -301,8 +348,8 @@
         }
 
         .btn {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #0a0e27;
+            background: linear-gradient(135deg, #B8860B, #D4AF37);
+            color: #1a2836;
             border: none;
             padding: 12px 30px;
             border-radius: 25px;
@@ -310,13 +357,13 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Noto Sans JP', sans-serif;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            font-family: 'Noto Serif JP', serif;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
         }
 
         /* 結果表示 */
@@ -324,27 +371,27 @@
             text-align: center;
             margin: 20px 0;
             font-size: 1.1em;
-            color: #B8C5FF;
+            color: #d4dae5;
         }
 
         /* フッター */
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: #B8C5FF;
+            color: #d4dae5;
             font-size: 0.9em;
             margin-top: 60px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         footer a {
-            color: #FFD700;
+            color: #D4AF37;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         footer a:hover {
-            color: #FFA500;
+            color: #FFD700;
         }
 
         /* ローディングアニメーション */
@@ -358,7 +405,7 @@
             width: 50px;
             height: 50px;
             border: 4px solid rgba(255, 255, 255, 0.2);
-            border-top-color: #FFD700;
+            border-top-color: #D4AF37;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto;
@@ -395,13 +442,13 @@
     <div class="container">
         <!-- ヘッダー -->
         <header>
-            <h1>🪐 TDC FOOD Finder</h1>
+            <h1><img src="celestial-chart.png" alt=""> TDC FOOD Finder</h1>
             <p class="subtitle">トーキョー・ディスカバリー・シティ 2025 非公式検索サイト</p>
         </header>
 
         <!-- フィルタセクション -->
         <div class="filter-container">
-            <button class="filter-toggle" onclick="toggleFilters()">🔎 フィルタ表示/非表示</button>
+            <button class="filter-toggle" onclick="toggleFilters()"><span class="material-symbols-outlined">filter_alt</span> フィルタ表示/非表示</button>
             
             <div id="filterGrid" class="filter-grid">
                 <div class="filter-group">
@@ -466,7 +513,7 @@
         <!-- アクションボタン -->
         <div class="action-buttons">
             <button class="btn" onclick="applyFilters()">✨ 検索</button>
-            <button class="btn" onclick="exportCSV()">📥 CSV出力</button>
+            <button class="btn" onclick="exportCSV()"><span class="material-symbols-outlined">csv</span> CSV出力</button>
         </div>
 
         <!-- 結果表示 -->
@@ -496,46 +543,46 @@
     <script>
         // 全データ（data.jsより）
         let foodData = [
-            { area: "ラクーア DELI & DISH", menu: "お昼ご飯かそれともおやつ？ エリンギのフォカッチャとアップルパイ", author: "河村拓哉", restaurant: "Half Saints BAKES", url: "https://www.laqua.jp/shops/list/halfsaintsbakes/", coaster: "ボイスB", price: 1080, is_closed: true },
-            { area: "ラクーア DELI & DISH", menu: "夜の始まり黄昏チキンフォカッチャ＆ピーチパイ", author: "東言", restaurant: "Half Saints BAKES", url: "https://www.laqua.jp/shops/list/halfsaintsbakes/", coaster: "謎B", price: 1080, is_closed: true },
-            { area: "ラクーア DELI & DISH", menu: "飛び出せ！いちごのJAM IN THE DONUTS", author: "東問", restaurant: "JACK IN THE DONUTS", url: "https://www.laqua.jp/shops/list/jackinthedounuts/", coaster: "ボイスB", price: 700, is_closed: false },
-            { area: "ラクーア DELI & DISH", menu: "ペパパププリン 〜ペッパー薫る濃厚パンプキンプリン〜", author: "山本祥彰", restaurant: "クラフトプリン製作所 vuke", url: "https://www.laqua.jp/shops/list/vuke/", coaster: "クイズA", price: 630, is_closed: false },
-            { area: "ラクーア DELI & DISH", menu: "虹にない夜の色、紅芋と紫芋のプリン", author: "河村拓哉", restaurant: "クラフトプリン製作所 vuke", url: "https://www.laqua.jp/shops/list/vuke/", coaster: "クイズB", price: 630, is_closed: false },
-            { area: "ラクーア DELI & DISH", menu: "日本初！伊沢が熱望したパーリンカ・シュークリーム", author: "伊沢拓司", restaurant: "アトリエ・ド・マー", url: "https://www.laqua.jp/shops/list/atelier/", coaster: "謎A", price: 800, is_closed: false },
-            { area: "ラクーア DELI & DISH", menu: "フルーツチーズタルト・シアン（#00FFFF）", author: "ふくらP", restaurant: "アトリエ・ド・マー", url: "https://www.laqua.jp/shops/list/atelier/", coaster: "クイズB", price: 800, is_closed: false },
-            { area: "ラクーア DELI & DISH", menu: "汁なしタンタン・ヴィオレ", author: "伊沢拓司", restaurant: "フレンチヌードルファクトリー", url: "https://www.laqua.jp/restaurants/list/frenchnoodlefactory/", coaster: "ボイスA", price: 1380, is_closed: false },
-            { area: "ラクーア DELI & DISH", menu: "いちごクリームソーダ〜派手で甘くてアイス付きってガチ最強やん〜", author: "須貝駿貴", restaurant: "フレンチヌードルファクトリー", url: "https://www.laqua.jp/restaurants/list/frenchnoodlefactory/", coaster: "謎A", price: 780, is_closed: false },
-            { area: "ラクーア DELI & DISH", menu: "「いちご」一会", author: "須貝駿貴", restaurant: "一〇八抹茶茶廊", url: "https://www.laqua.jp/shops/list/ichimaruhachimatchasaro/", coaster: "ボイスA", price: 800, is_closed: false },
-            { area: "ラクーア DELI & DISH", menu: "燦々（さんさん）", author: "東言", restaurant: "銀座 菊廼舎", url: "https://www.laqua.jp/shops/list/kikunoya/", coaster: "謎A", price: 1296, is_closed: true },
-            { area: "ラクーア DELI & DISH", menu: "南国の山本さんをイメージ！マンゴー杏仁", author: "鶴崎修功", restaurant: "日日包", url: "https://www.laqua.jp/shops/list/nichinichipao/", coaster: "クイズA", price: 918, is_closed: false },
-            { area: "ラクーア", menu: "塩分はポテトで摂るのが1番！タコスミートポテト", author: "鶴崎修功", restaurant: "ミゲルフアニ", url: "https://www.laqua.jp/restaurants/list/migueljuani/", coaster: "ボイスA", price: 1280, is_closed: false },
-            { area: "ラクーア", menu: "須貝スペシャルオレンジフロート 通年メニューにしませんか？", author: "須貝駿貴", restaurant: "creperie kenny's", url: "https://www.laqua.jp/restaurants/list/creperiekennys/", coaster: "クイズA", price: 1000, is_closed: false },
-            { area: "ラクーア", menu: "バナナチョコミルク 斑状組織風", author: "ふくらP", restaurant: "creperie kenny's", url: "https://www.laqua.jp/restaurants/list/creperiekennys/", coaster: "謎A", price: 1000, is_closed: false },
-            { area: "ラクーア", menu: "白い革命〜カレー×クレープ〜", author: "伊沢拓司", restaurant: "creperie kenny's", url: "https://www.laqua.jp/restaurants/list/creperiekennys/", coaster: "謎B", price: 1200, is_closed: false },
-            { area: "ラクーア", menu: "灯火親しむべし！かぼちゃのトーチクレープ", author: "山本祥彰", restaurant: "creperie kenny's", url: "https://www.laqua.jp/restaurants/list/creperiekennys/", coaster: "クイズB", price: 1200, is_closed: false },
-            { area: "スパ ラクーア", menu: "トマ～トソ～ス！う～んトレビア～ン！", author: "東言", restaurant: "CAFE CASA＆Deli", url: "https://www.laqua.jp/spa/facilities/restaurants/casa_deli/", coaster: "ボイスB", price: 1500, is_closed: true },
-            { area: "スパ ラクーア", menu: "アセロラサンライズフロート", author: "河村拓哉", restaurant: "dayoff cafe", url: "https://www.laqua.jp/spa/facilities/restaurants/dayoffcafe/", coaster: "謎A", price: 850, is_closed: false },
-            { area: "スパ ラクーア", menu: "珈琲車厘（コーヒーゼリー）", author: "須貝駿貴", restaurant: "R.S. BAR", url: "https://www.laqua.jp/spa/facilities/restaurants/rsbar/", coaster: "クイズB", price: 1200, is_closed: false },
-            { area: "スパ ラクーア", menu: "秉燭夜遊（へいしょくやゆう）", author: "山本祥彰", restaurant: "THE BAR", url: "https://www.laqua.jp/spa/facilities/restaurants/the_bar/", coaster: "謎B", price: 1200, is_closed: false },
-            { area: "スパ ラクーア", menu: "◯が10個も！大正解・丸十ブンカレー〜ココナッツ風味〜", author: "伊沢拓司", restaurant: "ニャーヴェトナム", url: "https://www.laqua.jp/spa/facilities/restaurants/nha-vietnam/", coaster: "ボイスA", price: 1500, is_closed: false },
-            { area: "スパ ラクーア", menu: "最もおいしい飲み物、ヨーグルト", author: "鶴崎修功", restaurant: "バーデカフェ", url: "https://www.laqua.jp/spa/facilities/restaurants/barde_cafe/", coaster: "謎B", price: 980, is_closed: false },
-            { area: "スパ ラクーア", menu: "思わず正座もくずしちゃうホワイトホットうどん", author: "山本祥彰", restaurant: "よ志のやダイニング", url: "https://www.laqua.jp/spa/facilities/restaurants/yoshinoya/", coaster: "ボイスB", price: 2500, is_closed: false },
-            { area: "スパ ラクーア", menu: "満喫パンケーキ∵マンゴー&キウイフルーツ", author: "ふくらP", restaurant: "ラウンジカフェ", url: "https://www.laqua.jp/spa/facilities/restaurants/lounge_cafe/", coaster: "クイズA", price: 1500, is_closed: false },
-            { area: "東京ドームシティ アトラクションズ", menu: "夜のアクアマリン", author: "ふくらP", restaurant: "マリオンクレープ（アトラクションズ店）", url: "https://www.tokyo-dome.co.jp/shops/g-marion-atrak.html", coaster: "謎B", price: 1000, is_closed: false },
-            { area: "東京ドームシティ アトラクションズ", menu: "やったー！ツナとごぼうのクレープ！", author: "東言", restaurant: "マリオンクレープ（アトラクションズ店）", url: "https://www.tokyo-dome.co.jp/shops/g-marion-atrak.html", coaster: "ボイスB", price: 1000, is_closed: false },
-            { area: "東京ドームホテル", menu: "ciel tricolore", author: "東問", restaurant: "43F スカイラウンジ＆ダイニング「アーティスト カフェ」スタンディングバー", url: "https://www.tokyodome-hotels.co.jp/restaurants/list/artistcafe/", coaster: "クイズA", price: 1800, is_closed: false },
-            { area: "東京ドームホテル", menu: "comet hunter", author: "ふくらP", restaurant: "43F スカイラウンジ＆ダイニング「アーティスト カフェ」スタンディングバー", url: "https://www.tokyodome-hotels.co.jp/restaurants/list/artistcafe/", coaster: "ボイスA", price: 2000, is_closed: false },
-            { area: "東京ドームホテル", menu: "サンセットピーチティー", author: "東言", restaurant: "6F バー「2000」", url: "https://www.tokyodome-hotels.co.jp/restaurants/list/bar2000/", coaster: "クイズA", price: 1800, is_closed: false },
-            { area: "東京ドームホテル", menu: "Galaxy 〜ギャラクシー〜", author: "須貝駿貴", restaurant: "6F バー「2000」", url: "https://www.tokyodome-hotels.co.jp/restaurants/list/bar2000/", coaster: "謎B", price: 2000, is_closed: false },
-            { area: "FOOD STADIUM TOKYO", menu: "問題！タコスが生まれた国はメ/ ﾋﾟﾝﾎﾟﾝ 日本！正解！早押しタコライス", author: "山本祥彰", restaurant: "Don Chava", url: "https://www.tokyo-dome.co.jp/shops/g-donchava.html", coaster: "謎A", price: 1280, is_closed: false },
-            { area: "FOOD STADIUM TOKYO", menu: "タコスセット（タコスの「ス」って複数形のsだからセットじゃなかったらただのタコだったよ、よかったね）", author: "河村拓哉", restaurant: "Don Chava", url: "https://www.tokyo-dome.co.jp/shops/g-donchava.html", coaster: "謎B", price: 1500, is_closed: false },
-            { area: "FOOD STADIUM TOKYO", menu: "丘に立つ月見鶏ちゃんぽん〜揚げナスを添えて〜", author: "東問", restaurant: "蟻月", url: "https://www.tokyo-dome.co.jp/shops/g-arizuki.html", coaster: "クイズB", price: 1480, is_closed: false },
-            { area: "FOOD STADIUM TOKYO", menu: "二つの味が吹き抜ける！海鮮 ギンヌンガガップ丼", author: "東問", restaurant: "水道橋 すしわさび", url: "https://www.tokyo-dome.co.jp/shops/g-sushiwasabi.html", coaster: "ボイスB", price: 1320, is_closed: false },
-            { area: "Space Travelium TeNQ", menu: "チョコバナナラテ、天の川の『の』の香り", author: "鶴崎修功", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "ボイスA", price: 880, is_closed: false },
-            { area: "Space Travelium TeNQ", menu: "プリントラテ『天幕』〜夜陰のシアター〜（コーヒー）", author: "伊沢拓司", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "クイズB", price: 800, is_closed: false },
-            { area: "Space Travelium TeNQ", menu: "プリントラテ『天幕』〜夜陰のシアター〜（カフェラテ）", author: "伊沢拓司", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "クイズB", price: 850, is_closed: false },
-            { area: "Space Travelium TeNQ", menu: "プリントラテ『天幕』〜夜陰のシアター〜（抹茶ラテ）", author: "伊沢拓司", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "クイズB", price: 900, is_closed: false },
-            { area: "Space Travelium TeNQ", menu: "プリントラテ『天幕』〜夜陰のシアター〜（ミルクティー）", author: "伊沢拓司", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "クイズB", price: 900, is_closed: false }
+            { area: "ラクーア DELI & DISH", menu: "お昼ご飯かそれともおやつ？ エリンギのフォカッチャとアップルパイ", author: "河村拓哉", restaurant: "Half Saints BAKES", url: "https://www.laqua.jp/shops/list/halfsaintsbakes/", coaster: "ボイスB", price: 1080 },
+            { area: "ラクーア DELI & DISH", menu: "夜の始まり黄昏チキンフォカッチャ＆ピーチパイ", author: "東言", restaurant: "Half Saints BAKES", url: "https://www.laqua.jp/shops/list/halfsaintsbakes/", coaster: "謎B", price: 1080 },
+            { area: "ラクーア DELI & DISH", menu: "飛び出せ！いちごのJAM IN THE DONUTS", author: "東問", restaurant: "JACK IN THE DONUTS", url: "https://www.laqua.jp/shops/list/jackinthedounuts/", coaster: "ボイスB", price: 700 },
+            { area: "ラクーア DELI & DISH", menu: "ペパパププリン 〜ペッパー薫る濃厚パンプキンプリン〜", author: "山本祥彰", restaurant: "クラフトプリン製作所 vuke", url: "https://www.laqua.jp/shops/list/vuke/", coaster: "クイズA", price: 630 },
+            { area: "ラクーア DELI & DISH", menu: "虹にない夜の色、紅芋と紫芋のプリン", author: "河村拓哉", restaurant: "クラフトプリン製作所 vuke", url: "https://www.laqua.jp/shops/list/vuke/", coaster: "クイズB", price: 630 },
+            { area: "ラクーア DELI & DISH", menu: "日本初！伊沢が熱望したパーリンカ・シュークリーム", author: "伊沢拓司", restaurant: "アトリエ・ド・マー", url: "https://www.laqua.jp/shops/list/atelier/", coaster: "謎A", price: 800 },
+            { area: "ラクーア DELI & DISH", menu: "フルーツチーズタルト・シアン（#00FFFF）", author: "ふくらP", restaurant: "アトリエ・ド・マー", url: "https://www.laqua.jp/shops/list/atelier/", coaster: "クイズB", price: 800 },
+            { area: "ラクーア DELI & DISH", menu: "汁なしタンタン・ヴィオレ", author: "伊沢拓司", restaurant: "フレンチヌードルファクトリー", url: "https://www.laqua.jp/restaurants/list/frenchnoodlefactory/", coaster: "ボイスA", price: 1380 },
+            { area: "ラクーア DELI & DISH", menu: "いちごクリームソーダ〜派手で甘くてアイス付きってガチ最強やん〜", author: "須貝駿貴", restaurant: "フレンチヌードルファクトリー", url: "https://www.laqua.jp/restaurants/list/frenchnoodlefactory/", coaster: "謎A", price: 780 },
+            { area: "ラクーア DELI & DISH", menu: "「いちご」一会", author: "須貝駿貴", restaurant: "一〇八抹茶茶廊", url: "https://www.laqua.jp/shops/list/ichimaruhachimatchasaro/", coaster: "ボイスA", price: 800 },
+            { area: "ラクーア DELI & DISH", menu: "燦々（さんさん）", author: "東言", restaurant: "銀座 菊廼舎", url: "https://www.laqua.jp/shops/list/kikunoya/", coaster: "謎A", price: 1296 },
+            { area: "ラクーア DELI & DISH", menu: "南国の山本さんをイメージ！マンゴー杏仁", author: "鶴崎修功", restaurant: "日日包", url: "https://www.laqua.jp/shops/list/nichinichipao/", coaster: "クイズA", price: 918 },
+            { area: "ラクーア", menu: "塩分はポテトで摂るのが1番！タコスミートポテト", author: "鶴崎修功", restaurant: "ミゲルフアニ", url: "https://www.laqua.jp/restaurants/list/migueljuani/", coaster: "ボイスA", price: 1280 },
+            { area: "ラクーア", menu: "須貝スペシャルオレンジフロート 通年メニューにしませんか？", author: "須貝駿貴", restaurant: "creperie kenny's", url: "https://www.laqua.jp/restaurants/list/creperiekennys/", coaster: "クイズA", price: 1000 },
+            { area: "ラクーア", menu: "バナナチョコミルク 斑状組織風", author: "ふくらP", restaurant: "creperie kenny's", url: "https://www.laqua.jp/restaurants/list/creperiekennys/", coaster: "謎A", price: 1000 },
+            { area: "ラクーア", menu: "白い革命〜カレー×クレープ〜", author: "伊沢拓司", restaurant: "creperie kenny's", url: "https://www.laqua.jp/restaurants/list/creperiekennys/", coaster: "謎B", price: 1200 },
+            { area: "ラクーア", menu: "灯火親しむべし！かぼちゃのトーチクレープ", author: "山本祥彰", restaurant: "creperie kenny's", url: "https://www.laqua.jp/restaurants/list/creperiekennys/", coaster: "クイズB", price: 1200 },
+            { area: "スパ ラクーア", menu: "トマ～トソ～ス！う～んトレビア～ン！", author: "東言", restaurant: "CAFE CASA＆Deli", url: "https://www.laqua.jp/spa/facilities/restaurants/casa_deli/", coaster: "ボイスB", price: 1500 },
+            { area: "スパ ラクーア", menu: "アセロラサンライズフロート", author: "河村拓哉", restaurant: "dayoff cafe", url: "https://www.laqua.jp/spa/facilities/restaurants/dayoffcafe/", coaster: "謎A", price: 850 },
+            { area: "スパ ラクーア", menu: "珈琲車厘（コーヒーゼリー）", author: "須貝駿貴", restaurant: "R.S. BAR", url: "https://www.laqua.jp/spa/facilities/restaurants/rsbar/", coaster: "クイズB", price: 1200 },
+            { area: "スパ ラクーア", menu: "秉燭夜遊（へいしょくやゆう）", author: "山本祥彰", restaurant: "THE BAR", url: "https://www.laqua.jp/spa/facilities/restaurants/the_bar/", coaster: "謎B", price: 1200 },
+            { area: "スパ ラクーア", menu: "◯が10個も！大正解・丸十ブンカレー〜ココナッツ風味〜", author: "伊沢拓司", restaurant: "ニャーヴェトナム", url: "https://www.laqua.jp/spa/facilities/restaurants/nha-vietnam/", coaster: "ボイスA", price: 1500 },
+            { area: "スパ ラクーア", menu: "最もおいしい飲み物、ヨーグルト", author: "鶴崎修功", restaurant: "バーデカフェ", url: "https://www.laqua.jp/spa/facilities/restaurants/barde_cafe/", coaster: "謎B", price: 980 },
+            { area: "スパ ラクーア", menu: "思わず正座もくずしちゃうホワイトホットうどん", author: "山本祥彰", restaurant: "よ志のやダイニング", url: "https://www.laqua.jp/spa/facilities/restaurants/yoshinoya/", coaster: "ボイスB", price: 2500 },
+            { area: "スパ ラクーア", menu: "満喫パンケーキ∵マンゴー&キウイフルーツ", author: "ふくらP", restaurant: "ラウンジカフェ", url: "https://www.laqua.jp/spa/facilities/restaurants/lounge_cafe/", coaster: "クイズA", price: 1500 },
+            { area: "東京ドームシティ アトラクションズ", menu: "夜のアクアマリン", author: "ふくらP", restaurant: "マリオンクレープ（アトラクションズ店）", url: "https://www.tokyo-dome.co.jp/shops/g-marion-atrak.html", coaster: "謎B", price: 1000 },
+            { area: "東京ドームシティ アトラクションズ", menu: "やったー！ツナとごぼうのクレープ！", author: "東言", restaurant: "マリオンクレープ（アトラクションズ店）", url: "https://www.tokyo-dome.co.jp/shops/g-marion-atrak.html", coaster: "ボイスB", price: 1000 },
+            { area: "東京ドームホテル", menu: "ciel tricolore", author: "東問", restaurant: "43F スカイラウンジ＆ダイニング「アーティスト カフェ」スタンディングバー", url: "https://www.tokyodome-hotels.co.jp/restaurants/list/artistcafe/", coaster: "クイズA", price: 1800 },
+            { area: "東京ドームホテル", menu: "comet hunter", author: "ふくらP", restaurant: "43F スカイラウンジ＆ダイニング「アーティスト カフェ」スタンディングバー", url: "https://www.tokyodome-hotels.co.jp/restaurants/list/artistcafe/", coaster: "ボイスA", price: 2000 },
+            { area: "東京ドームホテル", menu: "サンセットピーチティー", author: "東言", restaurant: "6F バー「2000」", url: "https://www.tokyodome-hotels.co.jp/restaurants/list/bar2000/", coaster: "クイズA", price: 1800 },
+            { area: "東京ドームホテル", menu: "Galaxy 〜ギャラクシー〜", author: "須貝駿貴", restaurant: "6F バー「2000」", url: "https://www.tokyodome-hotels.co.jp/restaurants/list/bar2000/", coaster: "謎B", price: 2000 },
+            { area: "FOOD STADIUM TOKYO", menu: "問題！タコスが生まれた国はメ/ ﾋﾟﾝﾎﾟﾝ 日本！正解！早押しタコライス", author: "山本祥彰", restaurant: "Don Chava", url: "https://www.tokyo-dome.co.jp/shops/g-donchava.html", coaster: "謎A", price: 1280 },
+            { area: "FOOD STADIUM TOKYO", menu: "タコスセット（タコスの「ス」って複数形のsだからセットじゃなかったらただのタコだったよ、よかったね）", author: "河村拓哉", restaurant: "Don Chava", url: "https://www.tokyo-dome.co.jp/shops/g-donchava.html", coaster: "謎B", price: 1500 },
+            { area: "FOOD STADIUM TOKYO", menu: "丘に立つ月見鶏ちゃんぽん〜揚げナスを添えて〜", author: "東問", restaurant: "蟻月", url: "https://www.tokyo-dome.co.jp/shops/g-arizuki.html", coaster: "クイズB", price: 1480 },
+            { area: "FOOD STADIUM TOKYO", menu: "二つの味が吹き抜ける！海鮮 ギンヌンガガップ丼", author: "東問", restaurant: "水道橋 すしわさび", url: "https://www.tokyo-dome.co.jp/shops/g-sushiwasabi.html", coaster: "ボイスB", price: 1320 },
+            { area: "Space Travelium TeNQ", menu: "チョコバナナラテ、天の川の『の』の香り", author: "鶴崎修功", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "ボイスA", price: 880 },
+            { area: "Space Travelium TeNQ", menu: "プリントラテ『天幕』〜夜陰のシアター〜（コーヒー）", author: "伊沢拓司", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "クイズB", price: 800 },
+            { area: "Space Travelium TeNQ", menu: "プリントラテ『天幕』〜夜陰のシアター〜（カフェラテ）", author: "伊沢拓司", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "クイズB", price: 850 },
+            { area: "Space Travelium TeNQ", menu: "プリントラテ『天幕』〜夜陰のシアター〜（抹茶ラテ）", author: "伊沢拓司", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "クイズB", price: 900 },
+            { area: "Space Travelium TeNQ", menu: "プリントラテ『天幕』〜夜陰のシアター〜（ミルクティー）", author: "伊沢拓司", restaurant: "TeNQ CAFE 138", url: "https://www.tokyo-dome.co.jp/tenq/area/?tabChange=cafe", coaster: "クイズB", price: 900 },
         ];
 
         let filteredData = [...foodData];
@@ -543,15 +590,15 @@
         // 星のパーティクルを生成
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 60; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                const size = Math.random() * 3 + 1;
+                const size = Math.random() * 2 + 0.5;
                 star.style.width = size + 'px';
                 star.style.height = size + 'px';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDelay = Math.random() * 4 + 's';
                 starsContainer.appendChild(star);
             }
         }
@@ -599,31 +646,32 @@
                 
                 card.innerHTML = `
                     <div class="card-header">
-                        <div>
-                            <div class="card-title">${item.menu}</div>
-                        </div>
-                        <div class="card-price">¥${item.price.toLocaleString()}</div>
+                        <div class="card-title">${item.menu}</div>
                     </div>
                     <div class="card-info">
                         <div class="info-row">
-                            <span class="info-label">👨‍🍳 考案者</span>
+                            <span class="info-label"><span class="material-symbols-outlined">chef_hat</span> 考案者</span>
                             <span class="info-value">${item.author}</span>
                         </div>
                         <div class="info-row">
-                            <span class="info-label">📍 エリア</span>
+                            <span class="info-label"><span class="material-symbols-outlined">payments</span> 価格</span>
+                            <span class="card-price" style="font-size: 1.2em;">¥${item.price.toLocaleString()}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label"><span class="material-symbols-outlined">location_on</span> エリア</span>
                             <span class="info-value">${item.area}</span>
                         </div>
                         <div class="info-row">
-                            <span class="info-label">🏪 店舗</span>
+                            <span class="info-label"><span class="material-symbols-outlined">store</span> 店舗</span>
                             <span class="info-value">${item.restaurant}${closedBadge}</span>
                         </div>
                         <div class="info-row">
-                            <span class="info-label">🎫 コースター</span>
+                            <span class="info-label"><span class="material-symbols-outlined">local_activity</span> コースター</span>
                             <span class="coaster-badge">${item.coaster}</span>
                         </div>
                         ${item.url && !item.is_closed ? `<div class="info-row">
-                            <span class="info-label">🔗 詳細</span>
-                            <a href="${item.url}" target="_blank" style="color: #FFD700; text-decoration: none;">公式ページ →</a>
+                            <span class="info-label"><span class="material-symbols-outlined">link</span> 詳細</span>
+                            <a href="${item.url}" target="_blank" style="color: #D4AF37; text-decoration: none;">公式ページ →</a>
                         </div>` : ''}
                     </div>
                 `;
@@ -725,14 +773,18 @@
             });
 
             // Service Worker登録（PWA化）
-            if ('serviceWorker' in navigator) {
+            // 注: プレビュー環境やローカルホスト以外では動作しない場合があります
+            if ('serviceWorker' in navigator && location.hostname !== 'claudeusercontent.com') {
                 navigator.serviceWorker.register('./service-worker.js')
                     .then(registration => {
                         console.log('✨ PWA登録成功！', registration.scope);
                     })
                     .catch(error => {
-                        console.log('PWA登録失敗:', error);
+                        console.log('PWA登録スキップ: プレビュー環境またはservice-worker.jsが見つかりません');
+                        // エラーは無視（プレビュー環境では正常）
                     });
+            } else if (location.hostname === 'claudeusercontent.com') {
+                console.log('PWA登録スキップ: プレビュー環境ではPWAは動作しません');
             }
         };
     </script>
